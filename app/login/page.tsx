@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Eye, EyeOff, Lock, ShieldCheck, Stethoscope, User } from "lucide-react";
+import { ArrowLeft, ArrowRight, Eye, EyeOff, Lock, ShieldCheck } from "lucide-react";
 import { VitalCareLogo } from "@/components/brand/logo";
-import { Button } from "@/components/ui/button";
 
 type Role = "patient" | "doctor";
 
@@ -22,7 +22,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading]         = useState(false);
 
-  // When role changes, update demo email
   function switchRole(r: Role) {
     setRole(r);
     setEmail(DEMO_CREDENTIALS[r].email);
@@ -32,157 +31,135 @@ export default function LoginPage() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    // Simulate auth delay
     await new Promise((res) => setTimeout(res, 900));
     router.push(role === "doctor" ? "/doctor" : "/home");
   }
 
   return (
-    <div className="min-h-dvh flex">
-      {/* ── Left Panel: Decorative (hidden on mobile) ── */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden flex-col items-center justify-center dark-texture">
-        {/* Ambient blobs */}
-        <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-gold/10 blur-3xl animate-breathe" />
-        <div className="absolute bottom-1/4 right-1/4 h-48 w-48 rounded-full bg-botanical/8 blur-3xl animate-breathe delay-300" />
+    <div className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-[#faf8f5] px-5 py-12 selection:bg-[#c4a265]/20">
+      
+      {/* Background Image of the clinic with a soft, bright overlay */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/hero-clinic.jpg"
+          alt="VitalCare Clínica"
+          fill
+          priority
+          className="object-cover opacity-35 filter blur-[1px]"
+        />
+        {/* Soft, warm luxury radial gradient to blend the edges */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#faf8f5]/90 via-[#faf8f5]/65 to-[#faf8f5]/30" />
+      </div>
 
-        <div className="relative z-10 max-w-xs text-center">
-          <VitalCareLogo size="lg" variant="dark" className="justify-center mb-8" />
-          <h2 className="font-display text-3xl text-white leading-snug">
-            Su bienestar,<br />
-            <span className="font-script text-4xl text-gold">nuestra misión.</span>
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-stone-400">
-            Medicina estética avanzada y nutrición metabólica de precisión
-            en Maracaibo, Venezuela.
-          </p>
+      {/* Floating back button outside the form - elegant top-left pill */}
+      <Link
+        href="/"
+        className="absolute top-6 left-6 z-20 flex items-center gap-1.5 rounded-full border border-stone-200/80 bg-white/90 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-stone-600 shadow-sm backdrop-blur-sm transition-all hover:bg-stone-50 hover:text-stone-800 active:scale-95"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Inicio
+      </Link>
 
-          {/* Pilares */}
-          <div className="mt-8 flex flex-col gap-2">
-            {["Belleza · Salud · Compromiso", "@vitalcare.ca · 26.8K seguidores", "Av 13A, Maracaibo, Venezuela"].map((t) => (
-              <p key={t} className="text-xs text-stone-500">{t}</p>
+      {/* Premium Light-Glass Card */}
+      <div className="relative z-10 w-full max-w-[420px]">
+        <div className="relative overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/85 p-8 shadow-[0_20px_50px_rgba(139,115,85,0.12)] backdrop-blur-xl">
+          
+          {/* Brand & Greetings */}
+          <div className="mb-8 text-center">
+            <div className="mb-6 flex justify-center">
+              <VitalCareLogo size="md" />
+            </div>
+            <h1 className="font-display text-3xl font-black text-charcoal">
+              Bienvenida, <span className="font-script text-4xl text-[#c4a265]">María</span>
+            </h1>
+            <p className="mt-2 text-xs leading-relaxed text-stone-500">
+              Accede de forma segura a tu expediente clínico y citas.
+            </p>
+          </div>
+
+          {/* Role Switcher */}
+          <div className="mb-6 flex rounded-2xl bg-stone-100/80 p-1 border border-stone-200/30">
+            {(["patient", "doctor"] as Role[]).map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => switchRole(r)}
+                className={`flex-1 rounded-xl py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
+                  role === r
+                    ? "bg-white text-charcoal shadow-md border border-stone-100"
+                    : "text-stone-400 hover:text-stone-600"
+                }`}
+              >
+                {r === "patient" ? "Paciente" : "Médico"}
+              </button>
             ))}
           </div>
 
-          {/* Trust badges */}
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-stone-500">
-              <ShieldCheck className="h-3.5 w-3.5 text-botanical" />
-              Datos cifrados
+          {/* Minimal Demo info bar */}
+          <div className="mb-6 rounded-2xl border border-[#c4a265]/20 bg-[#c4a265]/5 p-4">
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c4a265] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c4a265]"></span>
+              </span>
+              <p className="text-[9px] font-bold uppercase tracking-widest text-[#c4a265]">
+                Acceso Demo
+              </p>
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-stone-500">
-              <Lock className="h-3.5 w-3.5 text-botanical" />
-              Confidencialidad médica
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Right Panel: Form ── */}
-      <div className="flex-1 flex flex-col justify-center px-6 py-12 bg-white sm:px-10">
-        <div className="mx-auto w-full max-w-sm">
-
-          {/* Back link + Logo (mobile) */}
-          <div className="mb-8 lg:hidden">
-            <VitalCareLogo size="md" />
-          </div>
-          <Link
-            href="/"
-            className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-charcoal"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Volver al inicio
-          </Link>
-
-          {/* Heading */}
-          <h1 className="font-display text-4xl text-charcoal leading-tight">
-            Bienvenida,<br />
-            <span className="font-script text-3xl text-stone-500">María</span>
-          </h1>
-          <p className="mt-2 text-sm text-muted">
-            Acceda a su expediente clínico con total confidencialidad.
-          </p>
-
-          {/* Role Toggle */}
-          <div className="mt-6 flex rounded-xl border border-stone-200 p-1 bg-stone-50">
-            <button
-              onClick={() => switchRole("patient")}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all ${
-                role === "patient"
-                  ? "bg-white text-charcoal shadow-sm"
-                  : "text-muted hover:text-charcoal"
-              }`}
-            >
-              <User className="h-4 w-4" />
-              Paciente
-            </button>
-            <button
-              onClick={() => switchRole("doctor")}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-all ${
-                role === "doctor"
-                  ? "bg-white text-charcoal shadow-sm"
-                  : "text-muted hover:text-charcoal"
-              }`}
-            >
-              <Stethoscope className="h-4 w-4" />
-              Médico
-            </button>
-          </div>
-
-          {/* Demo credentials hint */}
-          <div className="mt-4 rounded-xl border border-botanical-light bg-botanical-subtle px-4 py-3">
-            <p className="text-xs font-semibold text-botanical mb-1">
-              🎯 Credenciales de demo
-            </p>
-            <p className="text-xs text-muted font-mono">{DEMO_CREDENTIALS[role].email}</p>
-            <p className="text-xs text-muted font-mono">vitalcare2026</p>
+            <p className="text-xs font-mono text-stone-600 tracking-tight">{DEMO_CREDENTIALS[role].email}</p>
+            <p className="text-[11px] font-mono text-stone-400 mt-0.5">Contraseña: vitalcare2026</p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleLogin} className="mt-6 space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted">
+              <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-stone-400">
                 Correo electrónico
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-stone-200 bg-stone-50 px-4 py-3 text-sm text-charcoal outline-none transition-colors focus:border-gold focus:bg-white focus:ring-2 focus:ring-gold/15"
+                className="w-full rounded-xl border border-stone-200 bg-white/70 px-4 py-3 text-sm text-charcoal outline-none transition-all focus:border-[#c4a265] focus:bg-white focus:ring-2 focus:ring-[#c4a265]/10"
                 required
               />
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted">
-                Contraseña
-              </label>
+              <div className="mb-1.5 flex items-center justify-between">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-stone-400">
+                  Contraseña
+                </label>
+                <button
+                  type="button"
+                  className="text-[10px] font-semibold text-[#c4a265] hover:text-[#b39257] transition-colors"
+                >
+                  ¿La olvidaste?
+                </button>
+              </div>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-stone-200 bg-stone-50 px-4 py-3 pr-11 text-sm text-charcoal outline-none transition-colors focus:border-gold focus:bg-white focus:ring-2 focus:ring-gold/15"
+                  className="w-full rounded-xl border border-stone-200 bg-white/70 px-4 py-3 pr-11 text-sm text-charcoal outline-none transition-all focus:border-[#c4a265] focus:bg-white focus:ring-2 focus:ring-[#c4a265]/10"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-              <p className="mt-1.5 text-right text-xs text-gold-dark hover:underline cursor-pointer">
-                ¿Olvidó su contraseña?
-              </p>
             </div>
 
-            <Button
+            <button
               type="submit"
-              className="gold-gradient w-full"
-              size="lg"
               disabled={loading}
+              className="group relative mt-2 flex w-full items-center justify-center overflow-hidden rounded-xl bg-[#c4a265] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#c4a265]/25 transition-all hover:bg-[#b39257] active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
             >
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -190,34 +167,37 @@ export default function LoginPage() {
                   Verificando...
                 </span>
               ) : (
-                <>
-                  Iniciar sesión como {role === "patient" ? "Paciente" : "Médico"}
-                </>
+                <span className="flex items-center gap-1.5">
+                  Iniciar sesión
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
               )}
-            </Button>
+            </button>
           </form>
 
-          {/* Footer links */}
-          <p className="mt-6 text-center text-xs text-muted">
-            ¿Primera vez?{" "}
-            <span className="font-medium text-gold-dark cursor-pointer hover:underline">
-              Crear cuenta segura
-            </span>
-          </p>
-
-          {/* Trust badges */}
-          <div className="mt-8 flex items-center justify-center gap-6 text-muted">
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider">
-              <ShieldCheck className="h-3.5 w-3.5 text-botanical" />
-              Datos cifrados
+          {/* Secure connection badges */}
+          <div className="mt-8 flex items-center justify-center gap-5 border-t border-stone-100 pt-6 text-stone-400">
+            <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-stone-400">
+              <ShieldCheck className="h-4 w-4 text-[#c4a265]" />
+              Conexión Cifrada
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider">
-              <Lock className="h-3.5 w-3.5 text-botanical" />
-              Confidencialidad médica
+            <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-stone-400">
+              <Lock className="h-4 w-4 text-[#c4a265]" />
+              Área Médica Segura
             </div>
           </div>
+
         </div>
+
+        {/* Outer text */}
+        <p className="mt-8 text-center text-xs text-stone-400">
+          ¿No tienes acceso?{" "}
+          <span className="font-semibold text-[#c4a265] cursor-pointer hover:underline">
+            Solicitar alta en recepción
+          </span>
+        </p>
       </div>
+
     </div>
   );
 }
