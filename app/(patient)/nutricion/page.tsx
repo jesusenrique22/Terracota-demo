@@ -2,6 +2,7 @@
 
 import { Bell, Check, X, Flame } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
+import { patient } from "@/lib/mock-data";
 import { usePatient } from "@/lib/patient-context";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +30,7 @@ export default function NutricionPage() {
     <div className="animate-fade-up pb-6">
       <PageHeader
         title="Plan del Día"
-        subtitle="Viernes 27 Jun · Dra. Jenni Bracho"
+        subtitle={`Viernes 27 Jun · ${patient.doctor}`}
         action={
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-botanical-subtle">
             <Bell className="h-4 w-4 text-botanical" />

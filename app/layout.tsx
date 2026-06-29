@@ -23,7 +23,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Terracota · by Smile More Spa | Maracaibo",
+  title: "Terracota · Estética & Spa | Maracaibo",
   description:
     "Estética avanzada, masajes terapéuticos, bioestimuladores, bótox y depilación láser en Maracaibo, Venezuela.",
   manifest: "/manifest.json",

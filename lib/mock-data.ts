@@ -1,5 +1,5 @@
 /* ====================================================
-   SMILE MORE GROUP — Mock Data & Types
+   TERRACOTA — Mock Data & Types
    ==================================================== */
 
 import { getClinicLocationLabel } from "@/lib/clinics";
@@ -21,13 +21,28 @@ export interface Appointment {
   status: AppointmentStatus;
 }
 
+/* ---------- Staff (demo) ---------- */
+
+export const nutritionist = {
+  name: "Dra. Valentina Morales",
+  instagram: "@dra.valentinamorales",
+};
+
+export const aestheticDoctor = {
+  name: "Dr. Andrés Delgado",
+  initials: "AD",
+  email: "dr.delgado@terracota.mcbo",
+  specialty: "Medicina Estética",
+  instagram: "@dr.andresdelgado",
+};
+
 /* ---------- Patient ---------- */
 
 export const patient = {
   name: "María González",
   initials: "MG",
-  email: "maria.gonzalez@terracota.smilemore",
-  doctor: "Dra. Jenni Bracho",
+  email: "maria.gonzalez@terracota.mcbo",
+  doctor: nutritionist.name,
   primaryClinicId: "terracota",
   memberSince: "Mar 2024",
   age: 34,
@@ -37,11 +52,11 @@ export const patient = {
 /* ---------- Doctor (for portal) ---------- */
 
 export const doctorUser = {
-  name: "Dr. Carlos Bracho",
-  initials: "CB",
-  email: "dr.bracho@terracota.smilemore",
-  specialty: "Medicina Estética",
-  instagram: "@drcarlosbracho",
+  name: aestheticDoctor.name,
+  initials: aestheticDoctor.initials,
+  email: aestheticDoctor.email,
+  specialty: aestheticDoctor.specialty,
+  instagram: aestheticDoctor.instagram,
 };
 
 /* ---------- Appointments ---------- */
@@ -49,7 +64,7 @@ export const doctorUser = {
 export const upcomingAppointment: Appointment = {
   id: "apt-001",
   service: "Consulta Nutricional Metabólica",
-  professional: "Dra. Jenni Bracho",
+  professional: nutritionist.name,
   date: "28 Jun 2026",
   time: "10:30 AM",
   type: "online",
@@ -64,7 +79,7 @@ export const appointments = {
     {
       id: "apt-002",
       service: "Control de Evolución Estética",
-      professional: "Dr. Carlos Bracho",
+      professional: aestheticDoctor.name,
       date: "15 Jul 2026",
       time: "4:00 PM",
       type: "presencial" as AppointmentType,
@@ -77,7 +92,7 @@ export const appointments = {
     {
       id: "apt-h1",
       service: "Aplicación de Bótox · Zona Frontal",
-      professional: "Dr. Carlos Bracho",
+      professional: aestheticDoctor.name,
       date: "12 Dic 2025",
       time: "11:00 AM",
       type: "presencial" as AppointmentType,
@@ -86,7 +101,7 @@ export const appointments = {
     {
       id: "apt-h2",
       service: "Consulta Nutricional",
-      professional: "Dra. Jenni Bracho",
+      professional: nutritionist.name,
       date: "3 Nov 2025",
       time: "9:00 AM",
       type: "online" as AppointmentType,
@@ -95,7 +110,7 @@ export const appointments = {
     {
       id: "apt-h3",
       service: "Sesión HIFU 2.5D · Rostro",
-      professional: "Dr. Carlos Bracho",
+      professional: aestheticDoctor.name,
       date: "5 Sep 2025",
       time: "2:00 PM",
       type: "presencial" as AppointmentType,
@@ -116,8 +131,8 @@ export const services = [
 ];
 
 export const professionals = [
-  { id: "p1", name: "Dra. Jenni Bracho",  specialty: "Nutrición Metabólica",  instagram: "@dra.jennibracho", clinicIds: ["terracota"] },
-  { id: "p2", name: "Dr. Carlos Bracho",  specialty: "Medicina Estética",     instagram: "@drcarlosbracho",  clinicIds: ["terracota"] },
+  { id: "p1", name: nutritionist.name,      specialty: "Nutrición Metabólica", instagram: nutritionist.instagram,      clinicIds: ["terracota"] },
+  { id: "p2", name: aestheticDoctor.name,   specialty: aestheticDoctor.specialty, instagram: aestheticDoctor.instagram, clinicIds: ["terracota"] },
   { id: "p3", name: "Lic. Ana Torres",    specialty: "Estética & Masajes",    instagram: "@anatorres.spa",   clinicIds: ["terracota"] },
 ];
 
@@ -160,7 +175,7 @@ export const dailyMeals = [
 
 export const chatChannels = [
   { id: "concierge", name: "Concierge · Citas", subtitle: "Atención al cliente", lastMessage: "Su cita del 28 Jun está confirmada ✓", time: "09:15", unread: 0 },
-  { id: "medical",   name: "Soporte Médico",     subtitle: "Dra. Jenni Bracho",   lastMessage: "Recuerde hidratarse antes de la consulta",  time: "Ayer", unread: 2 },
+  { id: "medical",   name: "Soporte Médico",     subtitle: nutritionist.name,   lastMessage: "Recuerde hidratarse antes de la consulta",  time: "Ayer", unread: 2 },
 ];
 
 export const chatMessages: Record<string, { id: string; from: "user" | "agent" | "doctor"; text: string; time: string }[]> = {
@@ -200,8 +215,8 @@ export const doctorPatients = [
 ];
 
 export const doctorTodayAppointments: Appointment[] = [
-  { id: "da-1", service: "Consulta Nutricional Metabólica", professional: "Dra. Jenni Bracho", date: "27 Jun 2026", time: "09:00 AM", type: "online",     status: "confirmada" },
-  { id: "da-2", service: "Aplicación de Bótox · Zona Frontal", professional: "Dr. Carlos Bracho", date: "27 Jun 2026", time: "11:30 AM", type: "presencial", status: "confirmada" },
-  { id: "da-3", service: "Control de Evolución",           professional: "Dr. Carlos Bracho", date: "27 Jun 2026", time: "02:00 PM", type: "presencial", status: "pendiente" },
-  { id: "da-4", service: "HIFU 2.5D · Rostro",            professional: "Dr. Carlos Bracho", date: "27 Jun 2026", time: "04:30 PM", type: "presencial", status: "pendiente" },
+  { id: "da-1", service: "Consulta Nutricional Metabólica", professional: nutritionist.name, date: "27 Jun 2026", time: "09:00 AM", type: "online",     status: "confirmada" },
+  { id: "da-2", service: "Aplicación de Bótox · Zona Frontal", professional: aestheticDoctor.name, date: "27 Jun 2026", time: "11:30 AM", type: "presencial", status: "confirmada" },
+  { id: "da-3", service: "Control de Evolución",           professional: aestheticDoctor.name, date: "27 Jun 2026", time: "02:00 PM", type: "presencial", status: "pendiente" },
+  { id: "da-4", service: "HIFU 2.5D · Rostro",            professional: aestheticDoctor.name, date: "27 Jun 2026", time: "04:30 PM", type: "presencial", status: "pendiente" },
 ];

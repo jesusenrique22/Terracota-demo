@@ -1,5 +1,5 @@
 /* ====================================================
-   TERRACOTA — by Smile More Spa
+   TERRACOTA — Estética & Spa · Maracaibo
    ==================================================== */
 
 export interface ClinicService {
@@ -35,7 +35,7 @@ export const terracota: Clinic = {
   id: "terracota",
   slug: "terracota",
   name: "Terracota",
-  tagline: "by Smile More Spa",
+  tagline: "Estética & Spa · Maracaibo",
   handle: "@terracotabysmilemore",
   category: "Salud y belleza",
   accent: "#c2b280",
@@ -76,7 +76,7 @@ export const terracota: Clinic = {
       description: "Programas personalizados para tonificar, hidratar y revitalizar.",
     },
   ],
-  address: "C.C Camoruco, Piso 1",
+  address: "C.C. Camoruco, Piso 1, Local 2-03",
   city: "Maracaibo, Venezuela",
   phone: "+58 424 555-0200",
   whatsapp: "https://linktr.ee/terracotamcbo",
@@ -84,7 +84,7 @@ export const terracota: Clinic = {
   linktree: "https://linktr.ee/terracotamcbo",
   hours: "Lunes a sábado · 9:00 AM – 6:00 PM",
   initials: "TR",
-  portalEmailDomain: "terracota.smilemore",
+  portalEmailDomain: "terracota.mcbo",
 };
 
 export const clinics = [terracota];

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { terracota } from "@/lib/clinics";
 
 type LogoProps = {
   size?: "sm" | "md" | "lg";
@@ -70,7 +71,7 @@ export function TerracotaLogo({
               isDark ? "text-white/40" : "text-muted"
             )}
           >
-            by Smile More Spa
+            {terracota.tagline}
           </p>
         </div>
       )}

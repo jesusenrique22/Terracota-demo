@@ -7,13 +7,14 @@ import { ArrowLeft, ArrowRight, Eye, EyeOff, Lock, ShieldCheck } from "lucide-re
 import { TerracotaLogo } from "@/components/brand/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { terracota } from "@/lib/clinics";
+import { aestheticDoctor } from "@/lib/mock-data";
 import { useTheme } from "@/lib/theme-context";
 
 type Role = "patient" | "doctor";
 
 const DEMO_CREDENTIALS = {
-  patient: { email: "maria.gonzalez@terracota.smilemore", password: "terracota2026" },
-  doctor:  { email: "dr.bracho@terracota.smilemore",      password: "terracota2026" },
+  patient: { email: "maria.gonzalez@terracota.mcbo", password: "terracota2026" },
+  doctor:  { email: aestheticDoctor.email, password: "terracota2026" },
 };
 
 function LoginForm() {
