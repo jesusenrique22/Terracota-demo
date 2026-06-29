@@ -45,7 +45,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background px-5 py-12">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden bg-background">
       <div
         className="pointer-events-none absolute inset-0 opacity-60"
         style={{
@@ -55,18 +55,19 @@ function LoginForm() {
         }}
       />
 
-      <div className="absolute left-6 top-6 z-20 flex items-center gap-2">
+      <header className="relative z-20 flex items-center justify-between border-b border-border/60 bg-background/90 px-5 py-3 backdrop-blur-md">
         <Link
           href="/"
-          className="flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-muted shadow-sm transition-all hover:border-gold/40 hover:text-charcoal active:scale-95"
+          className="flex h-10 items-center gap-1.5 rounded-xl border border-border bg-surface px-4 text-xs font-bold uppercase tracking-wider text-muted shadow-sm transition-all hover:border-gold/40 hover:text-charcoal active:scale-[0.98]"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4 shrink-0" />
           Inicio
         </Link>
-        <ThemeToggle compact />
-      </div>
+        <ThemeToggle compact className="h-10 w-10 shrink-0 rounded-xl bg-surface shadow-sm" />
+      </header>
 
-      <div className="relative z-10 w-full max-w-[420px]">
+      <div className="relative z-10 flex flex-1 items-center justify-center px-5 py-8">
+      <div className="w-full max-w-[420px]">
         <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface p-8 shadow-lg">
           <div className="mb-8 text-center">
             <div className="mb-6 flex justify-center">
@@ -190,6 +191,7 @@ function LoginForm() {
             Solicitar alta en recepción
           </span>
         </p>
+      </div>
       </div>
     </div>
   );
