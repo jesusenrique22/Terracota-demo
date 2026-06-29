@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import { TerracotaLogo } from "@/components/brand/logo";
 import { experiencePillars, promotions, terracota as clinic } from "@/lib/clinics";
-import { menuGroups, menuStats } from "@/lib/service-menu";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { useTheme } from "@/lib/theme-context";
 
@@ -71,7 +70,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="landing-page min-h-dvh overflow-x-hidden bg-background pb-24 text-charcoal sm:pb-0">
+    <div className="landing-page min-h-dvh overflow-x-hidden bg-background text-charcoal">
 
       <nav
         className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-4 transition-all duration-300 ${
@@ -79,36 +78,14 @@ export default function LandingPage() {
         }`}
       >
         <TerracotaLogo size="sm" variant={isDark ? "dark" : "light"} />
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <a href="#servicios" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold sm:block">
+        <div className="flex items-center gap-3">
+          <a href="#servicios" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold md:block">
             Servicios
           </a>
-          <Link href="/menu" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold sm:block">
-            Menú
-          </Link>
-          <a href="#contacto" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold sm:block">
+          <a href="#contacto" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold md:block">
             Contacto
           </a>
-          <Link
-            href="/menu"
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted transition-all hover:border-gold/40 sm:hidden"
-            aria-label="Ver menú de servicios"
-          >
-            <BookOpen className="h-4 w-4 text-gold" />
-          </Link>
-          <a
-            href="#contacto"
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-muted transition-all hover:border-gold/40 sm:hidden"
-            aria-label="Ir a contacto"
-          >
-            <MessageCircle className="h-4 w-4 text-gold" />
-          </a>
           <ThemeToggle compact />
-          <Link href="/login">
-            <button className="rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-widest text-white transition-all hover:brightness-110 gold-gradient">
-              Reservar
-            </button>
-          </Link>
         </div>
       </nav>
 
@@ -150,14 +127,14 @@ export default function LandingPage() {
           </Reveal>
 
           <Reveal delay={240}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/login" className="sm:flex-1">
+            <div className="mt-8 flex flex-col gap-3">
+              <Link href="/login">
                 <button className="flex w-full items-center justify-between rounded-2xl px-5 py-4 text-sm font-bold text-white transition-all active:scale-[0.98] hover:brightness-110 gold-gradient">
                   Reservar cita
                   <ArrowRight className="h-5 w-5" />
                 </button>
               </Link>
-              <Link href="/menu" className="sm:flex-1">
+              <Link href="/menu">
                 <button className="flex w-full items-center justify-between rounded-2xl border-2 border-gold/35 bg-surface px-5 py-4 text-sm font-bold text-charcoal shadow-sm transition-all hover:border-gold/50 hover:bg-gold-subtle active:scale-[0.98]">
                   <span>Ver menú y precios</span>
                   <BookOpen className="h-5 w-5 text-gold" />
@@ -185,36 +162,6 @@ export default function LandingPage() {
             <br />
             <span className="italic text-muted">transforman</span>
           </h2>
-        </Reveal>
-
-        <Reveal delay={80}>
-          <Link href="/menu">
-            <div className="group mt-6 overflow-hidden rounded-3xl border border-gold/25 bg-surface shadow-sm transition-all hover:border-gold/40 hover:shadow-md">
-              <div className="gold-gradient px-5 py-4 text-white">
-                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/75">
-                  Menú Terracota
-                </p>
-                <h3 className="mt-1 font-display text-2xl font-black">Tratamientos y precios</h3>
-                <p className="mt-1 text-sm text-white/85">
-                  {menuStats.categories} categorías · desde 20$
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 px-5 py-3">
-                {menuGroups.map((group) => (
-                  <span
-                    key={group.id}
-                    className="rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wider text-muted"
-                  >
-                    {group.label}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center justify-between border-t border-border bg-gold-subtle/40 px-5 py-3.5">
-                <span className="text-sm font-bold text-charcoal">Abrir menú completo</span>
-                <ArrowRight className="h-5 w-5 text-gold transition-transform group-hover:translate-x-1" />
-              </div>
-            </div>
-          </Link>
         </Reveal>
 
         <div className="mt-8 grid gap-3">
@@ -293,19 +240,14 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={180}>
-            <a href={clinic.linktree} target="_blank" rel="noopener noreferrer">
-              <button className="flex w-full items-center justify-between rounded-2xl border border-border bg-surface px-5 py-4 text-sm font-semibold text-charcoal shadow-sm transition-all hover:border-gold/40 hover:bg-gold-subtle active:scale-[0.98]">
-                Contactar
-                <MessageCircle className="h-5 w-5 text-gold" />
-              </button>
-            </a>
-          </Reveal>
-          <Reveal delay={240}>
-            <a href={clinic.linktree} target="_blank" rel="noopener noreferrer">
-              <button className="flex w-full items-center justify-between rounded-2xl px-5 py-4 text-sm font-bold text-white transition-all active:scale-[0.98] hover:brightness-110 gold-gradient">
-                Reserva tu cita en el link
-                <ArrowRight className="h-5 w-5" />
-              </button>
+            <a
+              href={clinic.linktree}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-border bg-surface px-5 py-4 text-sm font-medium text-muted transition-colors hover:border-gold/40 hover:text-gold"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Contactar por WhatsApp
             </a>
           </Reveal>
         </div>
@@ -389,8 +331,7 @@ export default function LandingPage() {
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
           <Link href="/login" className="text-xs text-muted transition-colors hover:text-gold">Portal Paciente</Link>
           <Link href="/login?role=doctor" className="text-xs text-muted transition-colors hover:text-gold">Portal Médico</Link>
-          <Link href="/menu" className="text-xs text-muted transition-colors hover:text-gold">Menú de servicios</Link>
-          <a href={clinic.linktree} target="_blank" rel="noopener noreferrer" className="text-xs text-muted transition-colors hover:text-gold">Reservar cita</a>
+          <a href="#contacto" className="text-xs text-muted transition-colors hover:text-gold">Contacto</a>
           <a href={`tel:${clinic.phone}`} className="text-xs text-muted transition-colors hover:text-gold">Llamar</a>
         </div>
         <p className="mt-6 flex items-center gap-1.5 text-[10px] text-muted">
@@ -399,20 +340,6 @@ export default function LandingPage() {
         </p>
         <p className="mt-2 text-[10px] text-muted/70">© 2026 Terracota · {clinic.city}</p>
       </footer>
-
-      {/* Barra fija móvil — menú siempre a mano */}
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 backdrop-blur-xl sm:hidden">
-        <div className="mx-auto flex max-w-[430px] gap-2 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          <Link href="/menu" className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-gold/30 bg-surface py-3.5 text-sm font-bold text-charcoal transition-all active:scale-[0.98]">
-            <BookOpen className="h-4 w-4 text-gold" />
-            Menú
-          </Link>
-          <Link href="/login" className="flex flex-1 items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition-all active:scale-[0.98] hover:brightness-110 gold-gradient">
-            Reservar
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }

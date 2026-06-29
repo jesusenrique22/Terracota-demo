@@ -14,7 +14,7 @@ export default function MenuPage() {
   const isDark = theme === "dark";
 
   return (
-    <div className="landing-page min-h-dvh bg-background pb-24 text-charcoal sm:pb-0">
+    <div className="landing-page min-h-dvh bg-background text-charcoal">
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
         <div className="flex items-center justify-between px-5 py-4">
           <Link
