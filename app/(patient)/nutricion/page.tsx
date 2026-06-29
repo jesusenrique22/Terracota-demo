@@ -59,8 +59,8 @@ export default function NutricionPage() {
                 />
                 <defs>
                   <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#8f6e3d" />
-                    <stop offset="100%" stopColor="#c4a265" />
+                    <stop offset="0%" stopColor="#a39382" />
+                    <stop offset="100%" stopColor="#c2b280" />
                   </linearGradient>
                 </defs>
               </svg>

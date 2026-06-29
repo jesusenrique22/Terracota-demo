@@ -2,36 +2,28 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   Calendar,
   ChevronDown,
+  Clock,
+  Flame,
+  Heart,
   MapPin,
   MessageCircle,
-  Phone,
   Shield,
   Sparkles,
-  Star,
+  Syringe,
+  Waves,
+  Zap,
 } from "lucide-react";
-import { VitalCareLogo } from "@/components/brand/logo";
+import { TerracotaLogo } from "@/components/brand/logo";
+import { experiencePillars, promotions, terracota as clinic } from "@/lib/clinics";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { useTheme } from "@/lib/theme-context";
 
-/* ============================================================
-   INSTAGRAM SVG ICON
-   ============================================================ */
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
+const serviceIcons = [Sparkles, Waves, Syringe, Zap, Flame, Heart];
 
-/* ============================================================
-   REVEAL HOOK — Intersection Observer
-   ============================================================ */
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -40,7 +32,7 @@ function useReveal() {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.15 }
+      { threshold: 0.12 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -48,26 +40,6 @@ function useReveal() {
   return { ref, visible };
 }
 
-/* ============================================================
-   SERVICES
-   ============================================================ */
-const services = [
-  { label: "HIFU 2.5D",            sub: "Lifting Facial",       img: "/svc-hifu.jpg",      tag: "Más popular" },
-  { label: "Medicina Estética",     sub: "Bótox & Rellenos",     img: "/svc-botox.jpg",     tag: null },
-  { label: "Láser CO₂",            sub: "Fraccionado",          img: "/svc-laser.jpg",     tag: null },
-  { label: "Nutrición Metabólica",  sub: "Plan personalizado",   img: "/svc-nutrition.jpg", tag: "Novedad" },
-];
-
-const doctors = [
-  { name: "Dr. Carlos Bracho", role: "Medicina Estética",    handle: "@drcarlosbracho",   img: "/dr-carlos.jpg", years: "15+" },
-  { name: "Dra. Jenni Bracho", role: "Nutrición Metabólica", handle: "@dra.jennibracho",  img: "/dr-jenni.jpg",  years: "12+" },
-];
-
-
-
-/* ============================================================
-   REVEAL SECTION WRAPPER
-   ============================================================ */
 function Reveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const { ref, visible } = useReveal();
   return (
@@ -76,8 +48,8 @@ function Reveal({ children, className, delay = 0 }: { children: React.ReactNode;
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(28px)",
-        transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms`,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
       }}
     >
       {children}
@@ -85,367 +57,290 @@ function Reveal({ children, className, delay = 0 }: { children: React.ReactNode;
   );
 }
 
-/* ============================================================
-   MAIN PAGE
-   ============================================================ */
 export default function LandingPage() {
   const [navSolid, setNavSolid] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
-    const onScroll = () => setNavSolid(window.scrollY > 60);
+    const onScroll = () => setNavSolid(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <div className="landing-page min-h-dvh overflow-x-hidden bg-[#0a0a0a]">
+    <div className="landing-page min-h-dvh overflow-x-hidden bg-background text-charcoal">
 
-      {/* ====================================================
-          NAV — floating → solid on scroll
-          ==================================================== */}
       <nav
-        className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-4 transition-all duration-300"
-        style={{
-          background: navSolid ? "rgba(10,10,10,0.95)" : "transparent",
-          backdropFilter: navSolid ? "blur(16px)" : "none",
-          borderBottom: navSolid ? "1px solid rgba(255,255,255,0.06)" : "none",
-        }}
+        className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-4 transition-all duration-300 ${
+          navSolid ? "border-b border-border bg-background/95 backdrop-blur-md" : "bg-transparent"
+        }`}
       >
-        <VitalCareLogo size="sm" variant="dark" />
-        <Link href="/login">
-          <button className="rounded-full border border-white/20 bg-white/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-widest text-white/90 backdrop-blur-sm transition-all hover:bg-white/15 hover:border-white/30">
-            Acceder
-          </button>
-        </Link>
+        <TerracotaLogo size="sm" variant={isDark ? "dark" : "light"} />
+        <div className="flex items-center gap-2">
+          <a href="#servicios" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold sm:block">
+            Servicios
+          </a>
+          <a href="#contacto" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold sm:block">
+            Contacto
+          </a>
+          <ThemeToggle compact />
+          <Link href="/login">
+            <button className="rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-widest text-white transition-all hover:brightness-110 gold-gradient">
+              Reservar
+            </button>
+          </Link>
+        </div>
       </nav>
 
-      {/* ====================================================
-          HERO — Full-screen dark cinematic
-          ==================================================== */}
-      <section className="relative min-h-dvh overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/hero-dark.jpg"
-            alt="VitalCare Clínica Estética Maracaibo"
-            fill
-            priority
-            className="object-cover"
-          />
-          {/* Multi-layer overlay for depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
+      {/* Hero */}
+      <section className="relative flex min-h-dvh flex-col justify-end overflow-hidden px-5 pb-12 pt-28">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="landing-hero-bg absolute inset-0" />
+          <div className="sand-texture absolute inset-0 opacity-30" />
+          <div className="landing-hero-fade absolute inset-x-0 bottom-0 h-48" />
         </div>
 
-        {/* Ambient glow */}
-        <div className="absolute bottom-1/3 right-1/4 h-64 w-64 rounded-full bg-[#c4a265]/10 blur-3xl pointer-events-none" />
-
-        {/* Content */}
-        <div className="relative z-10 flex min-h-dvh flex-col justify-end px-6 pb-10 pt-24">
-          {/* Badge */}
-          <div className="mb-5 animate-fade-up">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#c4a265]/30 bg-[#c4a265]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#c4a265] backdrop-blur-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#c4a265] animate-pulse" />
-              Clínica Estética Avanzada
-            </span>
-          </div>
-
-          {/* Headline — BIG editorial */}
-          <div className="animate-fade-up delay-100">
-            <h1 className="font-display text-[3.25rem] font-black leading-[0.95] tracking-tight text-white">
-              Transforma
-              <br />
-              <span className="italic text-[#c4a265]">tu piel.</span>
-              <br />
-              Renueva tu
-              <br />
-              <span className="italic">vida.</span>
-            </h1>
-          </div>
-
-          <p className="mt-5 max-w-[260px] text-sm leading-relaxed text-white/60 animate-fade-up delay-200">
-            Medicina estética avanzada y nutrición metabólica de precisión.
-          </p>
-
-          {/* CTAs */}
-          <div className="mt-7 flex flex-col gap-3 animate-fade-up delay-300">
-            <Link href="/login">
-              <button className="flex w-full items-center justify-between rounded-2xl bg-[#c4a265] px-5 py-4 font-bold text-black transition-all active:scale-[0.98] hover:bg-[#d4b275]">
-                <span className="text-sm">Agendar Cita</span>
-                <ArrowRight className="h-5 w-5" />
-              </button>
-            </Link>
-            <a href="#tratamientos">
-              <button className="flex w-full items-center justify-between rounded-2xl border border-white/15 bg-white/5 px-5 py-4 backdrop-blur-sm transition-all active:scale-[0.98] hover:bg-white/10">
-                <span className="text-sm font-semibold text-white">Explorar Tratamientos</span>
-                <ArrowRight className="h-5 w-5 text-white/50" />
-              </button>
-            </a>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="mt-10 flex items-center gap-2 animate-fade-up delay-400">
-            <div className="h-px flex-1 bg-white/10" />
-            <ChevronDown className="h-4 w-4 text-white/30 animate-pulse-soft" />
-            <div className="h-px flex-1 bg-white/10" />
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* ====================================================
-          SERVICES — Cards con imagen
-          ==================================================== */}
-      <section id="tratamientos" className="bg-[#0a0a0a] px-5 py-14">
-        <Reveal>
-          <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-[#c4a265]">
-            Tratamientos
-          </p>
-          <h2 className="font-display text-3xl font-black text-white leading-tight">
-            Experiencias de
-            <br />
-            <span className="italic text-white/60">excelencia</span>
-          </h2>
-        </Reveal>
-
-        <div className="mt-7 space-y-3">
-          {services.map((svc, i) => (
-            <Reveal key={svc.label} delay={i * 80}>
-              <div className="group relative h-40 overflow-hidden rounded-2xl">
-                <Image
-                  src={svc.img}
-                  alt={svc.label}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-between px-5">
-                  <div>
-                    {svc.tag && (
-                      <span className="mb-1.5 inline-block rounded-full bg-[#c4a265] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
-                        {svc.tag}
-                      </span>
-                    )}
-                    <p className="font-display text-xl font-bold text-white leading-tight">{svc.label}</p>
-                    <p className="text-xs text-white/55">{svc.sub}</p>
-                  </div>
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
-                    <ArrowRight className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+        <div className="landing-hero-ornament" aria-hidden="true">
+          <span className="landing-hero-ornament-inner" />
         </div>
 
-        {/* Skin Vision Pro highlight */}
-        <Reveal delay={400}>
-          <div className="mt-3 relative overflow-hidden rounded-2xl border border-[#c4a265]/20 bg-[#c4a265]/5 p-5">
-            <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#c4a265]/10 blur-2xl" />
-            <div className="relative">
-              <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-[#c4a265]">Tecnología</p>
-              <p className="font-display text-xl font-bold text-white">Skin Vision Pro</p>
-              <p className="mt-1 text-xs leading-relaxed text-white/50">Análisis cutáneo de alta precisión con imagen espectral avanzada.</p>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ====================================================
-          PHILOSOPHY — Tipografía gigante
-          ==================================================== */}
-      <section className="relative overflow-hidden bg-[#111111] py-16">
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <p className="select-none font-display text-[22vw] font-black uppercase text-white/3 leading-none">
-            VC
-          </p>
-        </div>
-        <div className="relative px-6">
+        <div className="relative z-10">
           <Reveal>
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#c4a265]">
-              Nuestra filosofía
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold-subtle px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-gold-dark">
+              {clinic.category} · Maracaibo
+            </span>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <h1 className="mt-6 font-display text-[3rem] font-black leading-[0.92] tracking-tight text-charcoal sm:text-[3.5rem]">
+              Belleza y
+              <br />
+              <span className="italic text-gold">bienestar</span>
+              <br />
+              en su máxima
+              <br />
+              expresión.
+            </h1>
+          </Reveal>
+
+          <Reveal delay={160}>
+            <p className="mt-5 max-w-[300px] text-sm leading-relaxed text-muted">
+              {clinic.description}
             </p>
           </Reveal>
-          <div className="space-y-5">
-            {[
-              { word: "Belleza", desc: "Resultados visibles con precisión médica y elegancia natural." },
-              { word: "Salud",   desc: "Ciencia de vanguardia y nutrición personalizada de precisión." },
-              { word: "Compromiso", desc: "Acompañamiento cercano en cada etapa de tu transformación." },
-            ].map((p, i) => (
-              <Reveal key={p.word} delay={i * 120}>
-                <div className="border-b border-white/6 pb-5">
-                  <p className="font-display text-4xl font-black italic text-white">{p.word}</p>
-                  <p className="mt-1.5 text-sm text-white/45">{p.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+
+          <Reveal delay={240}>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/login">
+                <button className="flex w-full items-center justify-between rounded-2xl px-5 py-4 text-sm font-bold text-white transition-all active:scale-[0.98] hover:brightness-110 gold-gradient sm:w-auto sm:min-w-[200px]">
+                  Reservar cita
+                  <ArrowRight className="h-5 w-5" />
+                </button>
+              </Link>
+              <a href={clinic.linktree} target="_blank" rel="noopener noreferrer">
+                <button className="flex w-full items-center justify-between rounded-2xl border border-border bg-surface px-5 py-4 text-sm font-semibold text-charcoal shadow-sm transition-all hover:border-gold/40 hover:bg-gold-subtle sm:w-auto sm:min-w-[200px]">
+                  <span>Contactar</span>
+                  <MessageCircle className="h-5 w-5 text-gold" />
+                </button>
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={320}>
+            <div className="mt-12 flex items-center gap-2">
+              <div className="h-px flex-1 bg-border" />
+              <ChevronDown className="h-4 w-4 text-muted animate-pulse-soft" />
+              <div className="h-px flex-1 bg-border" />
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ====================================================
-          DOCTORS
-          ==================================================== */}
-      <section className="bg-[#0a0a0a] px-5 py-14">
+      {/* Servicios */}
+      <section id="servicios" className="px-5 py-16">
         <Reveal>
-          <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-[#c4a265]">
-            Equipo médico
-          </p>
-          <h2 className="font-display text-3xl font-black text-white leading-tight">
-            Profesionales de
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">Tratamientos</p>
+          <h2 className="mt-2 font-display text-3xl font-black leading-tight text-charcoal">
+            Servicios que
             <br />
-            <span className="italic text-white/60">confianza</span>
+            <span className="italic text-muted">transforman</span>
           </h2>
         </Reveal>
 
-        <div className="mt-7 space-y-4">
-          {doctors.map((doc, i) => (
-            <Reveal key={doc.name} delay={i * 100}>
-              <div className="group relative overflow-hidden rounded-2xl border border-white/6 bg-[#141414]">
-                <div className="flex gap-4 p-4">
-                  {/* Photo */}
-                  <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-xl">
-                    <Image
-                      src={doc.img}
-                      alt={doc.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+        <div className="mt-8 grid gap-3">
+          {clinic.services.map((svc, i) => {
+            const Icon = serviceIcons[i] ?? Sparkles;
+            return (
+              <Reveal key={svc.id} delay={i * 50}>
+                <div className="group flex gap-4 rounded-2xl border border-border bg-surface p-5 shadow-sm transition-all hover:border-gold/30 hover:shadow-md">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-subtle">
+                    <Icon className="h-5 w-5 text-gold-dark" strokeWidth={1.5} />
                   </div>
-                  {/* Info */}
-                  <div className="flex flex-1 flex-col justify-between">
-                    <div>
-                      <p className="font-display text-lg font-bold text-white leading-tight">{doc.name}</p>
-                      <p className="text-xs text-white/50">{doc.role}</p>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="font-semibold text-charcoal">{svc.label}</p>
+                      {svc.tag && (
+                        <span className="rounded-full bg-gold px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white">
+                          {svc.tag}
+                        </span>
+                      )}
                     </div>
-                    <div className="flex items-center gap-3 mt-2">
-                      <a
-                        href={`https://instagram.com/${doc.handle.replace("@","")}`}
-                        target="_blank" rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 text-[10px] text-[#c4a265] font-semibold"
-                      >
-                        <InstagramIcon className="h-3 w-3" />
-                        {doc.handle}
-                      </a>
-                      <span className="rounded-full border border-[#c4a265]/25 px-2 py-0.5 text-[9px] font-bold text-[#c4a265]">
-                        {doc.years} años
-                      </span>
-                    </div>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">{svc.description}</p>
                   </div>
                 </div>
-                {/* Bottom accent */}
-                <div className="h-0.5 w-0 bg-gradient-to-r from-[#c4a265] to-transparent transition-all duration-500 group-hover:w-full" />
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Experiencia */}
+      <section className="landing-section-alt border-y px-5 py-16">
+        <Reveal>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">La experiencia</p>
+          <h2 className="mt-2 font-display text-2xl font-black text-charcoal">Por qué elegir Terracota</h2>
+        </Reveal>
+        <div className="mt-8 space-y-4">
+          {experiencePillars.map((p, i) => (
+            <Reveal key={p.title} delay={i * 70}>
+              <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+                <p className="font-display text-lg font-bold text-charcoal">{p.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{p.desc}</p>
               </div>
             </Reveal>
           ))}
         </div>
-
-        {/* Instagram link */}
-        <Reveal delay={200}>
-          <a
-            href="https://instagram.com/vitalcare.ca"
-            target="_blank" rel="noopener noreferrer"
-            className="mt-5 flex items-center justify-center gap-2 text-xs text-white/30 hover:text-[#c4a265] transition-colors"
-          >
-            <InstagramIcon className="h-3.5 w-3.5" />
-            @vitalcare.ca · 26.8K seguidores
-          </a>
-        </Reveal>
       </section>
 
-
-
-      {/* ====================================================
-          PORTAL CTA — Premium card
-          ==================================================== */}
-      <section className="px-5 py-14 bg-[#0a0a0a]">
+      {/* Ubicación */}
+      <section id="contacto" className="px-5 py-16">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-[#c4a265] p-6">
-            {/* Background pattern */}
-            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
-            <div className="pointer-events-none absolute -left-5 bottom-0 h-28 w-28 rounded-full bg-black/10 blur-xl" />
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">Visítanos</p>
+          <h2 className="mt-2 font-display text-2xl font-black text-charcoal">Estamos en Camoruco</h2>
+        </Reveal>
 
+        <div className="mt-8 space-y-3">
+          <Reveal delay={60}>
+            <div className="rounded-2xl border border-gold/25 bg-gold-subtle p-5">
+              <div className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold-dark" />
+                <div>
+                  <p className="font-semibold text-charcoal">{clinic.address}</p>
+                  <p className="mt-1 text-sm text-muted">{clinic.city}</p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+              <div className="flex items-start gap-3">
+                <Clock className="mt-0.5 h-5 w-5 shrink-0 text-gold-dark" />
+                <div>
+                  <p className="font-semibold text-charcoal">Horario de atención</p>
+                  <p className="mt-1 text-sm text-muted">{clinic.hours}</p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={180}>
+            <a href={clinic.linktree} target="_blank" rel="noopener noreferrer">
+              <button className="flex w-full items-center justify-between rounded-2xl px-5 py-4 text-sm font-bold text-white transition-all active:scale-[0.98] hover:brightness-110 gold-gradient">
+                Reserva tu cita en el link
+                <ArrowRight className="h-5 w-5" />
+              </button>
+            </a>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Promociones */}
+      <section className="landing-section-alt border-t px-5 py-16">
+        <Reveal>
+          <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">Promociones</p>
+          <h2 className="mt-2 font-display text-2xl font-black text-charcoal">Experiencias destacadas</h2>
+        </Reveal>
+        <div className="mt-8 space-y-3">
+          {promotions.map((promo, i) => (
+            <Reveal key={promo.id} delay={i * 60}>
+              <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-display text-lg font-bold text-charcoal">{promo.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted">{promo.desc}</p>
+                  </div>
+                  {promo.tag && (
+                    <span className="shrink-0 rounded-full bg-gold px-2.5 py-0.5 text-[8px] font-bold uppercase text-white">
+                      {promo.tag}
+                    </span>
+                  )}
+                </div>
+                <a href={clinic.linktree} target="_blank" rel="noopener noreferrer">
+                  <button className="mt-4 text-xs font-semibold text-gold-dark transition-opacity hover:opacity-80">
+                    Consultar disponibilidad →
+                  </button>
+                </a>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* Portal */}
+      <section className="px-5 py-16">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-gold/20 p-6 gold-gradient text-white shadow-[var(--shadow-gold)]">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-black/5 blur-2xl" />
             <div className="relative">
-              <span className="mb-3 inline-block rounded-full bg-black/15 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-black/70">
-                Portal exclusivo
-              </span>
-              <h2 className="font-display text-3xl font-black leading-tight text-black">
-                Tu experiencia
+              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/75">Portal del paciente</p>
+              <h2 className="mt-2 font-display text-2xl font-black leading-tight text-white">
+                Tu historial clínico,
                 <br />
-                VitalCare, digital.
+                siempre contigo.
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-black/65">
-                Citas, evolución clínica, nutrición y chat con tu médico — todo en tu teléfono.
+              <p className="mt-2 text-sm text-white/85">
+                Gestiona citas, evolución y chat con tu equipo desde el móvil.
               </p>
-
-              {/* Feature pills */}
               <div className="mt-4 flex flex-wrap gap-2">
                 {[
-                  { icon: Calendar,    text: "Agenda" },
-                  { icon: Sparkles,    text: "Evolución" },
-                  { icon: MessageCircle, text: "Chat médico" },
-                  { icon: Shield,      text: "Confidencial" },
+                  { icon: Calendar, text: "Citas" },
+                  { icon: Sparkles, text: "Evolución" },
+                  { icon: MessageCircle, text: "Chat" },
+                  { icon: Shield, text: "Privado" },
                 ].map(({ icon: Icon, text }) => (
-                  <span key={text} className="flex items-center gap-1.5 rounded-full bg-black/10 px-3 py-1.5 text-[11px] font-semibold text-black/70">
-                    <Icon className="h-3 w-3" strokeWidth={2} />
+                  <span key={text} className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/15 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+                    <Icon className="h-3 w-3" />
                     {text}
                   </span>
                 ))}
               </div>
-
-              <div className="mt-6 flex flex-col gap-2.5">
-                <Link href="/login">
-                  <button className="flex w-full items-center justify-between rounded-xl bg-black px-4 py-3.5 font-bold text-[#c4a265] transition-all active:scale-[0.98]">
-                    <span className="text-sm">Acceder al portal</span>
-                    <ArrowRight className="h-5 w-5" />
-                  </button>
-                </Link>
-                <a href="https://wa.link/vc3axb" target="_blank" rel="noopener noreferrer">
-                  <button className="flex w-full items-center justify-between rounded-xl bg-white/20 px-4 py-3.5 font-bold text-black/70 transition-all active:scale-[0.98] hover:bg-white/30">
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4" />
-                      <span className="text-sm">WhatsApp</span>
-                    </div>
-                    <span className="text-xs">wa.link/vc3axb</span>
-                  </button>
-                </a>
-              </div>
+              <Link href="/login">
+                <button className="landing-inverse-btn mt-5 flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-sm font-bold">
+                  Acceder al portal
+                  <ArrowRight className="landing-inverse-btn-icon h-5 w-5" />
+                </button>
+              </Link>
             </div>
           </div>
         </Reveal>
       </section>
 
-      {/* ====================================================
-          FOOTER
-          ==================================================== */}
-      <footer className="border-t border-white/6 bg-[#0a0a0a] px-5 pb-10 pt-8">
-        <div className="flex items-center justify-between">
-          <VitalCareLogo size="sm" variant="dark" />
-          <a
-            href="https://instagram.com/vitalcare.ca"
-            target="_blank" rel="noopener noreferrer"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/40 transition-colors hover:border-[#c4a265]/40 hover:text-[#c4a265]"
-          >
-            <InstagramIcon className="h-4 w-4" />
-          </a>
-        </div>
-
+      {/* Footer */}
+      <footer className="border-t border-border px-5 pb-10 pt-10">
+        <TerracotaLogo size="sm" variant={isDark ? "dark" : "light"} />
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
-          <Link href="/login" className="text-xs text-white/30 hover:text-white/60 transition-colors">Portal Paciente</Link>
-          <Link href="/login?role=doctor" className="text-xs text-white/30 hover:text-white/60 transition-colors">Portal Médico</Link>
-          <a href="https://wa.link/vc3axb" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">WhatsApp</a>
-          <a href="https://instagram.com/vitalcare.ca" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">Instagram</a>
+          <Link href="/login" className="text-xs text-muted transition-colors hover:text-gold">Portal Paciente</Link>
+          <Link href="/login?role=doctor" className="text-xs text-muted transition-colors hover:text-gold">Portal Médico</Link>
+          <a href={clinic.linktree} target="_blank" rel="noopener noreferrer" className="text-xs text-muted transition-colors hover:text-gold">Reservar cita</a>
+          <a href={`tel:${clinic.phone}`} className="text-xs text-muted transition-colors hover:text-gold">Llamar</a>
         </div>
-
-        <div className="mt-6 flex items-center gap-1.5 text-[10px] text-white/20">
-          <MapPin className="h-3 w-3 shrink-0" />
-          Clínica Estética y Nutrición Metabólica
-        </div>
-
-        <p className="mt-3 text-[10px] text-white/15">© 2026 Vital Care C.A. · Clínica Estética</p>
+        <p className="mt-6 flex items-center gap-1.5 text-[10px] text-muted">
+          <MapPin className="h-3 w-3" />
+          {clinic.address} · {clinic.city}
+        </p>
+        <p className="mt-2 text-[10px] text-muted/70">© 2026 Terracota · by Smile More Spa</p>
       </footer>
-
     </div>
   );
 }

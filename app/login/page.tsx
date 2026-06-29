@@ -1,31 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye, EyeOff, Lock, ShieldCheck } from "lucide-react";
-import { VitalCareLogo } from "@/components/brand/logo";
+import { TerracotaLogo } from "@/components/brand/logo";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { terracota } from "@/lib/clinics";
+import { useTheme } from "@/lib/theme-context";
 
 type Role = "patient" | "doctor";
 
 const DEMO_CREDENTIALS = {
-  patient: { email: "maria.gonzalez@vitalcare.ca", password: "vitalcare2026" },
-  doctor:  { email: "dr.bracho@vitalcare.ca",      password: "vitalcare2026" },
+  patient: { email: "maria.gonzalez@terracota.smilemore", password: "terracota2026" },
+  doctor:  { email: "dr.bracho@terracota.smilemore",      password: "terracota2026" },
 };
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
-  const [role, setRole]               = useState<Role>("patient");
-  const [email, setEmail]             = useState(DEMO_CREDENTIALS.patient.email);
-  const [password, setPassword]       = useState("vitalcare2026");
+  const searchParams = useSearchParams();
+  const roleParam = searchParams.get("role");
+  const accent = terracota.accent;
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
+  const [role, setRole] = useState<Role>(roleParam === "doctor" ? "doctor" : "patient");
+  const [email, setEmail] = useState(DEMO_CREDENTIALS.patient.email);
+  const [password, setPassword] = useState("terracota2026");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading]         = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function switchRole(r: Role) {
     setRole(r);
     setEmail(DEMO_CREDENTIALS[r].email);
-    setPassword("vitalcare2026");
+    setPassword("terracota2026");
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -36,49 +44,42 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-[#faf8f5] px-5 py-12 selection:bg-[#c4a265]/20">
-      
-      {/* Background Image of the clinic with a soft, bright overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero-clinic.jpg"
-          alt="VitalCare Clínica"
-          fill
-          priority
-          className="object-cover opacity-35 filter blur-[1px]"
-        />
-        {/* Soft, warm luxury radial gradient to blend the edges */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#faf8f5]/90 via-[#faf8f5]/65 to-[#faf8f5]/30" />
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background px-5 py-12">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          background: isDark
+            ? `radial-gradient(circle at 30% 20%, ${accent}22 0%, transparent 50%), radial-gradient(circle at 70% 80%, ${accent}11 0%, transparent 40%)`
+            : `radial-gradient(circle at 30% 20%, rgba(194,178,128,0.25) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(210,180,140,0.15) 0%, transparent 40%)`,
+        }}
+      />
+
+      <div className="absolute left-6 top-6 z-20 flex items-center gap-2">
+        <Link
+          href="/"
+          className="flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-muted shadow-sm transition-all hover:border-gold/40 hover:text-charcoal active:scale-95"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Inicio
+        </Link>
+        <ThemeToggle compact />
       </div>
 
-      {/* Floating back button outside the form - elegant top-left pill */}
-      <Link
-        href="/"
-        className="absolute top-6 left-6 z-20 flex items-center gap-1.5 rounded-full border border-stone-200/80 bg-white/90 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-stone-600 shadow-sm backdrop-blur-sm transition-all hover:bg-stone-50 hover:text-stone-800 active:scale-95"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Inicio
-      </Link>
-
-      {/* Premium Light-Glass Card */}
       <div className="relative z-10 w-full max-w-[420px]">
-        <div className="relative overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/85 p-8 shadow-[0_20px_50px_rgba(139,115,85,0.12)] backdrop-blur-xl">
-          
-          {/* Brand & Greetings */}
+        <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface p-8 shadow-lg">
           <div className="mb-8 text-center">
             <div className="mb-6 flex justify-center">
-              <VitalCareLogo size="md" />
+              <TerracotaLogo size="md" variant={isDark ? "dark" : "light"} />
             </div>
             <h1 className="font-display text-3xl font-black text-charcoal">
-              Bienvenida, <span className="font-script text-4xl text-[#c4a265]">María</span>
+              Bienvenida, <span className="italic text-gold">María</span>
             </h1>
-            <p className="mt-2 text-xs leading-relaxed text-stone-500">
-              Accede de forma segura a tu expediente clínico y citas.
+            <p className="mt-2 text-xs leading-relaxed text-muted">
+              Portal Terracota · acceso seguro a citas y expediente.
             </p>
           </div>
 
-          {/* Role Switcher */}
-          <div className="mb-6 flex rounded-2xl bg-stone-100/80 p-1 border border-stone-200/30">
+          <div className="mb-6 flex rounded-2xl border border-border bg-surface-muted p-1">
             {(["patient", "doctor"] as Role[]).map((r) => (
               <button
                 key={r}
@@ -86,8 +87,8 @@ export default function LoginPage() {
                 onClick={() => switchRole(r)}
                 className={`flex-1 rounded-xl py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
                   role === r
-                    ? "bg-white text-charcoal shadow-md border border-stone-100"
-                    : "text-stone-400 hover:text-stone-600"
+                    ? "border border-border bg-surface text-charcoal shadow-sm"
+                    : "text-muted hover:text-charcoal"
                 }`}
               >
                 {r === "patient" ? "Paciente" : "Médico"}
@@ -95,45 +96,40 @@ export default function LoginPage() {
             ))}
           </div>
 
-          {/* Minimal Demo info bar */}
-          <div className="mb-6 rounded-2xl border border-[#c4a265]/20 bg-[#c4a265]/5 p-4">
-            <div className="flex items-center gap-1.5 mb-1">
+          <div className="mb-6 rounded-2xl border border-gold/30 bg-gold-subtle p-4">
+            <div className="mb-1 flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c4a265] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#c4a265]"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
               </span>
-              <p className="text-[9px] font-bold uppercase tracking-widest text-[#c4a265]">
+              <p className="text-[9px] font-bold uppercase tracking-widest text-gold-dark">
                 Acceso Demo
               </p>
             </div>
-            <p className="text-xs font-mono text-stone-600 tracking-tight">{DEMO_CREDENTIALS[role].email}</p>
-            <p className="text-[11px] font-mono text-stone-400 mt-0.5">Contraseña: vitalcare2026</p>
+            <p className="text-xs font-mono tracking-tight text-charcoal">{DEMO_CREDENTIALS[role].email}</p>
+            <p className="mt-0.5 text-[11px] font-mono text-muted">Contraseña: terracota2026</p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-stone-400">
+              <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-widest text-muted">
                 Correo electrónico
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl border border-stone-200 bg-white/70 px-4 py-3 text-sm text-charcoal outline-none transition-all focus:border-[#c4a265] focus:bg-white focus:ring-2 focus:ring-[#c4a265]/10"
+                className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 text-sm text-charcoal outline-none transition-all focus:border-gold/50 focus:bg-surface focus:ring-2 focus:ring-gold/10"
                 required
               />
             </div>
 
             <div>
               <div className="mb-1.5 flex items-center justify-between">
-                <label className="block text-[10px] font-bold uppercase tracking-widest text-stone-400">
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-muted">
                   Contraseña
                 </label>
-                <button
-                  type="button"
-                  className="text-[10px] font-semibold text-[#c4a265] hover:text-[#b39257] transition-colors"
-                >
+                <button type="button" className="text-[10px] font-semibold text-gold-dark transition-colors hover:opacity-80">
                   ¿La olvidaste?
                 </button>
               </div>
@@ -142,13 +138,13 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-stone-200 bg-white/70 px-4 py-3 pr-11 text-sm text-charcoal outline-none transition-all focus:border-[#c4a265] focus:bg-white focus:ring-2 focus:ring-[#c4a265]/10"
+                  className="w-full rounded-xl border border-border bg-surface-muted px-4 py-3 pr-11 text-sm text-charcoal outline-none transition-all focus:border-gold/50 focus:bg-surface focus:ring-2 focus:ring-gold/10"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-charcoal"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -159,7 +155,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative mt-2 flex w-full items-center justify-center overflow-hidden rounded-xl bg-[#c4a265] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#c4a265]/25 transition-all hover:bg-[#b39257] active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
+              className="group relative mt-2 flex w-full items-center justify-center overflow-hidden rounded-xl py-3.5 text-sm font-bold text-white transition-all active:scale-[0.98] hover:brightness-110 disabled:opacity-70 gold-gradient"
             >
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -175,29 +171,33 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Secure connection badges */}
-          <div className="mt-8 flex items-center justify-center gap-5 border-t border-stone-100 pt-6 text-stone-400">
-            <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-stone-400">
-              <ShieldCheck className="h-4 w-4 text-[#c4a265]" />
+          <div className="mt-8 flex items-center justify-center gap-5 border-t border-border pt-6">
+            <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-muted">
+              <ShieldCheck className="h-4 w-4 text-gold" />
               Conexión Cifrada
             </div>
-            <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-stone-400">
-              <Lock className="h-4 w-4 text-[#c4a265]" />
+            <div className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider text-muted">
+              <Lock className="h-4 w-4 text-gold" />
               Área Médica Segura
             </div>
           </div>
-
         </div>
 
-        {/* Outer text */}
-        <p className="mt-8 text-center text-xs text-stone-400">
+        <p className="mt-8 text-center text-xs text-muted">
           ¿No tienes acceso?{" "}
-          <span className="font-semibold text-[#c4a265] cursor-pointer hover:underline">
+          <span className="cursor-pointer font-semibold text-gold-dark hover:underline">
             Solicitar alta en recepción
           </span>
         </p>
       </div>
-
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-dvh bg-background" />}>
+      <LoginForm />
+    </Suspense>
   );
 }

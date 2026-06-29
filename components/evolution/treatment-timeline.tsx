@@ -22,7 +22,7 @@ export function TreatmentTimeline() {
                 className={cn(
                   "relative z-10 mt-1.5 h-3.5 w-3.5 shrink-0 rounded-full border-2 transition-all",
                   isLatest
-                    ? "border-[#c4a265] bg-[#c4a265]"
+                    ? "border-[#c2b280] bg-[#c2b280]"
                     : "border-stone-200 bg-white"
                 )}
               />
@@ -31,7 +31,7 @@ export function TreatmentTimeline() {
                 <div className="flex items-center gap-2">
                   <span className={cn(
                     "text-[9px] font-bold uppercase tracking-wider",
-                    isLatest ? "text-[#8f6e3d]" : "text-muted"
+                    isLatest ? "text-[#a39382]" : "text-muted"
                   )}>
                     {item.label}
                   </span>

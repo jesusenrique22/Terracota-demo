@@ -16,6 +16,7 @@ import {
   chatChannels as initialChatChannels,
   type Appointment,
 } from "@/lib/mock-data";
+import { terracota } from "@/lib/clinics";
 
 /* ====================================================
    TYPES
@@ -62,6 +63,9 @@ export interface ToastConfig {
 interface PatientContextValue {
   // Paciente
   patient: typeof patient;
+  selectedClinicId: string;
+  selectedClinic: typeof terracota;
+  setSelectedClinicId: (id: string) => void;
 
   // Citas
   upcomingAppointments: Appointment[];
@@ -128,6 +132,9 @@ const botResponses: Record<string, string[]> = {
    ==================================================== */
 
 export function PatientProvider({ children }: { children: ReactNode }) {
+  const [selectedClinicId, setSelectedClinicId] = useState(terracota.id);
+  const selectedClinic = terracota;
+
   // Citas
   const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>(
     initialAppointments.upcoming
@@ -290,6 +297,9 @@ export function PatientProvider({ children }: { children: ReactNode }) {
 
   const value: PatientContextValue = {
     patient,
+    selectedClinicId,
+    selectedClinic,
+    setSelectedClinicId,
     upcomingAppointments,
     pastAppointments,
     addAppointment,

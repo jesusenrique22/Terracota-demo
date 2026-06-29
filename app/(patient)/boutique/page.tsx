@@ -53,14 +53,14 @@ function PaymentModal({
               onClick={() => setMethod(m.id)}
               className={cn(
                 "flex w-full items-center justify-between rounded-2xl border p-4 text-left transition-all",
-                method === m.id ? "border-[#c4a265] bg-[#faf5ec]" : "border-stone-200 bg-stone-50"
+                method === m.id ? "border-[#c2b280] bg-[rgba(194,178,128,0.08)]" : "border-stone-200 bg-stone-50"
               )}
             >
               <div>
                 <p className="font-semibold text-sm text-charcoal">{m.label}</p>
                 <p className="text-xs text-muted">{m.sub}</p>
               </div>
-              {method === m.id && <CheckCircle2 className="h-5 w-5 text-[#c4a265]" />}
+              {method === m.id && <CheckCircle2 className="h-5 w-5 text-[#c2b280]" />}
             </button>
           ))}
         </div>
@@ -68,7 +68,7 @@ function PaymentModal({
         <button
           onClick={onConfirm}
           className="w-full rounded-2xl py-4 text-sm font-bold text-black transition-all active:scale-[0.98]"
-          style={{ background: "linear-gradient(135deg, #8f6e3d, #c4a265)" }}
+          style={{ background: "linear-gradient(135deg, #a39382, #c2b280)" }}
         >
           Confirmar pedido · {formatCurrency(total)}
         </button>
@@ -116,7 +116,7 @@ export default function BoutiquePage() {
           >
             <ShoppingCart className="h-5 w-5 text-charcoal" />
             {cartCount > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#c4a265] text-[9px] font-bold text-white animate-bounce-in">
+              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#c2b280] text-[9px] font-bold text-white animate-bounce-in">
                 {cartCount}
               </span>
             )}
@@ -126,10 +126,10 @@ export default function BoutiquePage() {
 
       {/* ── Cart Summary ── */}
       {cartItems.length > 0 && (
-        <div className="mx-4 mb-4 overflow-hidden rounded-2xl border border-[#c4a265]/25 bg-[#faf5ec] animate-slide-right">
-          <div className="flex items-center justify-between border-b border-[#c4a265]/15 px-4 py-3">
+        <div className="mx-4 mb-4 overflow-hidden rounded-2xl border border-[#c2b280]/25 bg-[rgba(194,178,128,0.08)] animate-slide-right">
+          <div className="flex items-center justify-between border-b border-[#c2b280]/15 px-4 py-3">
             <div className="flex items-center gap-2">
-              <ShoppingCart className="h-4 w-4 text-[#c4a265]" />
+              <ShoppingCart className="h-4 w-4 text-[#c2b280]" />
               <p className="text-sm font-bold text-charcoal">
                 {cartCount} {cartCount === 1 ? "producto" : "productos"} · {formatCurrency(cartTotal)}
               </p>
@@ -143,7 +143,7 @@ export default function BoutiquePage() {
             {cartItems.map(([id, qty]) => {
               const product = products.find((p) => p.id === id)!;
               return (
-                <div key={id} className="flex items-center justify-between py-2 border-b border-[#c4a265]/10 last:border-0">
+                <div key={id} className="flex items-center justify-between py-2 border-b border-[#c2b280]/10 last:border-0">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white">
                       <Image src={product.image} alt={product.name} fill className="object-cover" />
@@ -164,7 +164,7 @@ export default function BoutiquePage() {
                     <button
                       onClick={() => updateCart(id, 1)}
                       className="flex h-6 w-6 items-center justify-center rounded-full text-white"
-                      style={{ background: "linear-gradient(135deg, #8f6e3d, #c4a265)" }}
+                      style={{ background: "linear-gradient(135deg, #a39382, #c2b280)" }}
                     >
                       <Plus className="h-3 w-3" />
                     </button>
@@ -177,7 +177,7 @@ export default function BoutiquePage() {
             <button
               onClick={() => setShowPayment(true)}
               className="w-full rounded-xl py-3 text-sm font-bold text-black transition-all active:scale-[0.98]"
-              style={{ background: "linear-gradient(135deg, #8f6e3d, #c4a265)" }}
+              style={{ background: "linear-gradient(135deg, #a39382, #c2b280)" }}
             >
               Proceder al pago · {formatCurrency(cartTotal)}
             </button>
@@ -187,8 +187,8 @@ export default function BoutiquePage() {
 
       {/* ── Doctor Recommended Banner ── */}
       <div className="mx-4 mb-4 flex items-center gap-3 rounded-2xl bg-[#1a1a1a] px-4 py-3.5">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#c4a265]/20">
-          <Sparkles className="h-4 w-4 text-[#c4a265]" />
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#c2b280]/20">
+          <Sparkles className="h-4 w-4 text-[#c2b280]" />
         </div>
         <div>
           <p className="text-xs font-bold text-white">Recomendados por su médico</p>
@@ -208,7 +208,7 @@ export default function BoutiquePage() {
                 ? "text-black"
                 : "bg-stone-100 text-muted hover:bg-stone-200"
             )}
-            style={filter === f ? { background: "linear-gradient(135deg, #8f6e3d, #c4a265)" } : {}}
+            style={filter === f ? { background: "linear-gradient(135deg, #a39382, #c2b280)" } : {}}
           >
             {f}
           </button>
@@ -233,7 +233,7 @@ export default function BoutiquePage() {
                   className="object-cover"
                 />
                 {product.recommended && (
-                  <span className="absolute left-2 top-2 rounded-full bg-[#c4a265] px-2 py-0.5 text-[9px] font-bold uppercase text-black">
+                  <span className="absolute left-2 top-2 rounded-full bg-[#c2b280] px-2 py-0.5 text-[9px] font-bold uppercase text-white">
                     ⭐ Top
                   </span>
                 )}
@@ -259,7 +259,7 @@ export default function BoutiquePage() {
                     <button
                       onClick={() => updateCart(product.id, 1)}
                       className="flex h-7 w-7 items-center justify-center rounded-lg text-white shadow-sm"
-                      style={{ background: "linear-gradient(135deg, #8f6e3d, #c4a265)" }}
+                      style={{ background: "linear-gradient(135deg, #a39382, #c2b280)" }}
                     >
                       <Plus className="h-3.5 w-3.5" />
                     </button>
@@ -268,7 +268,7 @@ export default function BoutiquePage() {
                   <button
                     onClick={() => handleAdd(product.id)}
                     className="mt-2 w-full rounded-xl py-2.5 text-xs font-bold text-black transition-all active:scale-[0.98]"
-                    style={{ background: "linear-gradient(135deg, #8f6e3d, #c4a265)" }}
+                    style={{ background: "linear-gradient(135deg, #a39382, #c2b280)" }}
                   >
                     Agregar al carrito
                   </button>
@@ -299,7 +299,7 @@ export default function BoutiquePage() {
               </div>
               <button
                 onClick={() => showToast("Re-compra agregada al carrito 🛒", "info")}
-                className="shrink-0 rounded-full border border-[#c4a265]/30 px-3 py-1.5 text-[10px] font-bold text-[#8f6e3d] transition-colors hover:bg-[#faf5ec]"
+                className="shrink-0 rounded-full border border-[#c2b280]/30 px-3 py-1.5 text-[10px] font-bold text-[#a39382] transition-colors hover:bg-[rgba(194,178,128,0.08)]"
               >
                 Repetir
               </button>

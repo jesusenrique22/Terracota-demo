@@ -1,6 +1,8 @@
 /* ====================================================
-   VITAL CARE — Mock Data & Types
+   SMILE MORE GROUP — Mock Data & Types
    ==================================================== */
+
+import { getClinicLocationLabel } from "@/lib/clinics";
 
 /* ---------- Types ---------- */
 
@@ -14,6 +16,7 @@ export interface Appointment {
   date: string;
   time: string;
   type: AppointmentType;
+  clinicId?: string;
   location?: string;
   status: AppointmentStatus;
 }
@@ -23,8 +26,9 @@ export interface Appointment {
 export const patient = {
   name: "María González",
   initials: "MG",
-  email: "maria.gonzalez@vitalcare.ca",
+  email: "maria.gonzalez@terracota.smilemore",
   doctor: "Dra. Jenni Bracho",
+  primaryClinicId: "terracota",
   memberSince: "Mar 2024",
   age: 34,
   phone: "+58 412 555-0198",
@@ -35,7 +39,7 @@ export const patient = {
 export const doctorUser = {
   name: "Dr. Carlos Bracho",
   initials: "CB",
-  email: "dr.bracho@vitalcare.ca",
+  email: "dr.bracho@terracota.smilemore",
   specialty: "Medicina Estética",
   instagram: "@drcarlosbracho",
 };
@@ -49,7 +53,8 @@ export const upcomingAppointment: Appointment = {
   date: "28 Jun 2026",
   time: "10:30 AM",
   type: "online",
-  location: "Telemedicina · VitalCare",
+  clinicId: "terracota",
+  location: "Telemedicina · Terracota",
   status: "confirmada",
 };
 
@@ -63,7 +68,8 @@ export const appointments = {
       date: "15 Jul 2026",
       time: "4:00 PM",
       type: "presencial" as AppointmentType,
-      location: "Sede Principal · Maracaibo",
+      clinicId: "terracota",
+      location: getClinicLocationLabel("terracota"),
       status: "pendiente" as AppointmentStatus,
     },
   ] as Appointment[],
@@ -110,8 +116,9 @@ export const services = [
 ];
 
 export const professionals = [
-  { id: "p1", name: "Dra. Jenni Bracho",  specialty: "Nutrición Metabólica",  instagram: "@dra.jennibracho" },
-  { id: "p2", name: "Dr. Carlos Bracho",  specialty: "Medicina Estética",     instagram: "@drcarlosbracho" },
+  { id: "p1", name: "Dra. Jenni Bracho",  specialty: "Nutrición Metabólica",  instagram: "@dra.jennibracho", clinicIds: ["terracota"] },
+  { id: "p2", name: "Dr. Carlos Bracho",  specialty: "Medicina Estética",     instagram: "@drcarlosbracho",  clinicIds: ["terracota"] },
+  { id: "p3", name: "Lic. Ana Torres",    specialty: "Estética & Masajes",    instagram: "@anatorres.spa",   clinicIds: ["terracota"] },
 ];
 
 /* ---------- Evolution Metrics ---------- */
@@ -173,9 +180,9 @@ export const chatMessages: Record<string, { id: string; from: "user" | "agent" |
 
 export const products = [
   { id: "prod-1", name: "Serum Vitamina C 20%",        brand: "SkinCeuticals",  price: 98,  category: "Dermatología", recommended: true,  image: "/product-serum.jpg" },
-  { id: "prod-2", name: "Colágeno Hidrolizado Premium", brand: "VitalCare Lab",  price: 54,  category: "Suplementos",  recommended: true,  image: "/product-collagen.jpg" },
+  { id: "prod-2", name: "Colágeno Hidrolizado Premium", brand: "Terracota Lab", price: 54,  category: "Suplementos",  recommended: true,  image: "/product-collagen.jpg" },
   { id: "prod-3", name: "Crema Retinol 0.5%",           brand: "Obagi",          price: 112, category: "Dermatología", recommended: false, image: "/product-cream.jpg" },
-  { id: "prod-4", name: "Omega-3 Metabólico",           brand: "VitalCare Lab",  price: 42,  category: "Suplementos",  recommended: true,  image: "/product-omega.jpg" },
+  { id: "prod-4", name: "Omega-3 Metabólico",           brand: "Terracota Lab", price: 42,  category: "Suplementos",  recommended: true,  image: "/product-omega.jpg" },
 ];
 
 export const orders = [

@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { TrendingDown, TrendingUp } from "lucide-react";
 
 const metrics = [
-  { key: "peso", label: "Peso", color: "#c4a265", unit: "kg" },
+  { key: "peso", label: "Peso", color: "#c2b280", unit: "kg" },
   { key: "grasa", label: "Grasa", color: "#b45454", unit: "%" },
   { key: "musculo", label: "Músculo", color: "#4a7c59", unit: "%" },
   { key: "cintura", label: "Cintura", color: "#1e1e1e", unit: "cm" },

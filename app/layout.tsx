@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
 
 /* ============================================================
@@ -22,14 +23,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Vital Care · Clínica Estética | Maracaibo",
+  title: "Terracota · by Smile More Spa | Maracaibo",
   description:
-    "Belleza, salud y compromiso. Medicina estética avanzada y nutrición metabólica en Maracaibo, Venezuela.",
+    "Estética avanzada, masajes terapéuticos, bioestimuladores, bótox y depilación láser en Maracaibo, Venezuela.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "VitalCare",
+    title: "Terracota",
   },
 };
 
@@ -38,7 +39,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#0a0a0a",
+  themeColor: "#c2b280",
 };
 
 export default function RootLayout({
@@ -49,9 +50,20 @@ export default function RootLayout({
   return (
     <html
       lang="es"
+      data-theme="light"
       className={`${playfair.variable} ${inter.variable} h-full`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full antialiased">{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('terracota-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-full bg-background text-charcoal antialiased">
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }

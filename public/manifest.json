@@ -1,11 +1,11 @@
 {
-  "name": "VitalCare",
-  "short_name": "VitalCare",
-  "description": "Portal del paciente · Medicina estética y nutrición metabólica",
+  "name": "Terracota · by Smile More Spa",
+  "short_name": "Terracota",
+  "description": "Portal del paciente · Estética avanzada y wellness en Maracaibo",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f5f2",
-  "theme_color": "#1877f2",
+  "background_color": "#1a1a1b",
+  "theme_color": "#c2b280",
   "orientation": "portrait",
   "icons": [
     {

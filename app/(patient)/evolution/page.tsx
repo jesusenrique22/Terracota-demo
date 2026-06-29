@@ -8,7 +8,7 @@ export default function EvolutionPage() {
   return (
     <div className="animate-fade-up pb-8">
       <PageHeader
-        title="Vital Evolution"
+        title="Mi Evolución"
         subtitle="Monitoreo de composición corporal y tratamientos"
       />
 
@@ -31,7 +31,7 @@ export default function EvolutionPage() {
           <BeforeAfterSlider />
           
           <div className="mt-3 flex items-start gap-2 rounded-xl bg-stone-50 p-3">
-            <Info className="h-4 w-4 shrink-0 text-[#c4a265] mt-0.5" />
+            <Info className="h-4 w-4 shrink-0 text-[#c2b280] mt-0.5" />
             <p className="text-[10px] leading-relaxed text-muted">
               Estas imágenes son estrictamente confidenciales y forman parte de su expediente clínico. Solo son visibles para usted y su equipo médico tratante.
             </p>

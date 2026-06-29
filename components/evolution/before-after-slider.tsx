@@ -54,7 +54,7 @@ export function BeforeAfterSlider({
             />
           </div>
           {/* Label overlay top-right */}
-          <div className="absolute right-3 top-3 rounded-full bg-[#c4a265] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black backdrop-blur-sm">
+          <div className="absolute right-3 top-3 rounded-full bg-[#c2b280] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
             Después
           </div>
         </div>
@@ -92,7 +92,7 @@ export function BeforeAfterSlider({
       {/* FOOTER LEGEND */}
       <div className="flex items-center justify-between border-t border-border bg-stone-50/50 px-4 py-3.5 text-xs text-muted">
         <span className="font-semibold text-charcoal">{beforeLabel}</span>
-        <span className="rounded-full bg-[#faf5ec] border border-[#c4a265]/20 px-2 py-0.5 text-[9px] font-bold uppercase text-[#8f6e3d]">
+        <span className="rounded-full bg-[rgba(194,178,128,0.08)] border border-[#c2b280]/20 px-2 py-0.5 text-[9px] font-bold uppercase text-[#a39382]">
           Desliza
         </span>
         <span className="font-semibold text-charcoal">{afterLabel}</span>

@@ -8,134 +8,74 @@ type LogoProps = {
 };
 
 const sizes = {
-  sm: { icon: 32, text: "text-base", sub: "text-[8px]" },
-  md: { icon: 42, text: "text-xl",   sub: "text-[9px]" },
-  lg: { icon: 56, text: "text-2xl",  sub: "text-[10px]" },
+  sm: { ring: 36, name: "text-sm", sub: "text-[7px]", mark: 18 },
+  md: { ring: 48, name: "text-base", sub: "text-[8px]", mark: 22 },
+  lg: { ring: 72, name: "text-xl", sub: "text-[9px]", mark: 32 },
 };
 
-export function VitalCareLogo({
+function BrandMark({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size * 0.55} viewBox="0 0 32 18" fill="none" aria-hidden>
+      <path d="M4 14 Q8 4 16 2 Q24 4 28 14" stroke="white" strokeWidth="1.8" strokeLinecap="round" opacity="0.9" />
+      <path d="M8 14 Q12 7 16 5 Q20 7 24 14" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.75" />
+      <path d="M12 14 Q14 10 16 9 Q18 10 20 14" stroke="white" strokeWidth="1.2" strokeLinecap="round" opacity="0.6" />
+    </svg>
+  );
+}
+
+export function TerracotaLogo({
   size = "md",
   showText = true,
   className,
-  variant = "light",
+  variant = "dark",
 }: LogoProps) {
   const s = sizes[size];
   const isDark = variant === "dark";
 
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      {/* Imagotipo: dos figuras humanas estilizadas (fiel al Instagram) */}
-      <svg
-        width={s.icon}
-        height={s.icon}
-        viewBox="0 0 56 56"
-        fill="none"
-        aria-hidden
-        className="shrink-0"
+      <div
+        className="relative flex shrink-0 flex-col items-center justify-center overflow-hidden rounded-full"
+        style={{
+          width: s.ring,
+          height: s.ring,
+          background: "linear-gradient(145deg, #d2b48c 0%, #c2b280 42%, #a39382 100%)",
+          boxShadow: "inset 0 2px 8px rgba(255,255,255,0.18), 0 0 0 1px rgba(194,178,128,0.35)",
+        }}
       >
-        {/* Fondo circular gradiente dorado */}
-        <circle cx="28" cy="28" r="27" fill="url(#logo-gradient)" />
-        <circle cx="28" cy="28" r="27" stroke="rgba(196,162,101,0.3)" strokeWidth="0.5" />
-
-        {/* Figura izquierda (cuerpo femenino – nutrición) */}
-        {/* Cabeza */}
-        <circle cx="20" cy="14" r="4" fill="white" opacity="0.95" />
-        {/* Cuerpo / torso con curva */}
-        <path
-          d="M14 22 Q15 19 20 19 Q25 19 26 22 L24 34 Q22 36 20 36 Q18 36 16 34 Z"
-          fill="white"
-          opacity="0.95"
+        <div
+          className="pointer-events-none absolute inset-0 opacity-30"
+          style={{
+            background: "linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.2) 100%)",
+          }}
         />
-        {/* Brazo izquierdo levantado (estilizado) */}
-        <path
-          d="M14 22 Q10 20 9 16"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          opacity="0.9"
-        />
-        {/* Brazo derecho */}
-        <path
-          d="M26 22 Q28 21 29 19"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          opacity="0.9"
-        />
-        {/* Piernas */}
-        <path
-          d="M17 36 L15 45M23 36 L25 45"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          opacity="0.85"
-        />
-
-        {/* Figura derecha (cuerpo masculino – estética) */}
-        {/* Cabeza */}
-        <circle cx="37" cy="13" r="4.5" fill="white" opacity="0.95" />
-        {/* Cuerpo más ancho (masculino) */}
-        <path
-          d="M30 22 Q31 19 37 19 Q43 19 44 22 L42 34 Q40 36 37 36 Q34 36 32 34 Z"
-          fill="white"
-          opacity="0.9"
-        />
-        {/* Brazo izquierdo */}
-        <path
-          d="M30 22 Q27 24 26 28"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          opacity="0.85"
-        />
-        {/* Brazo derecho levantado */}
-        <path
-          d="M44 22 Q48 18 49 15"
-          stroke="white"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          opacity="0.9"
-        />
-        {/* Piernas */}
-        <path
-          d="M34 36 L32 45M40 36 L42 45"
-          stroke="white"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          opacity="0.85"
-        />
-
-        <defs>
-          <linearGradient id="logo-gradient" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#7c5a2e" />
-            <stop offset="0.45" stopColor="#c4a265" />
-            <stop offset="1" stopColor="#dbc07a" />
-          </linearGradient>
-        </defs>
-      </svg>
+        <BrandMark size={s.mark} />
+      </div>
 
       {showText && (
         <div>
           <p
             className={cn(
-              "font-display font-semibold tracking-wide leading-none",
-              s.text,
+              "font-display font-semibold uppercase leading-none tracking-[0.12em]",
+              s.name,
               isDark ? "text-white" : "text-charcoal"
             )}
           >
-            Vital Care
+            Terracota
           </p>
           <p
             className={cn(
-              "uppercase tracking-[0.3em] leading-none mt-1",
+              "mt-1 uppercase leading-none tracking-[0.28em]",
               s.sub,
-              isDark ? "text-white/50" : "text-muted"
+              isDark ? "text-white/40" : "text-muted"
             )}
           >
-            Clínica Estética
+            by Smile More Spa
           </p>
         </div>
       )}
     </div>
   );
 }
+
+export const GroupLogo = TerracotaLogo;

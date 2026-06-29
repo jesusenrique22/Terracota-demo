@@ -15,6 +15,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { professionals, services } from "@/lib/mock-data";
 import type { Appointment } from "@/lib/mock-data";
+import { getClinicLocationLabel, terracota } from "@/lib/clinics";
 import { cn } from "@/lib/utils";
 import { usePatient } from "@/lib/patient-context";
 
@@ -30,8 +31,14 @@ const datesAvailable = [
 ];
 
 export default function CitasPage() {
-  const { upcomingAppointments, pastAppointments, addAppointment, cancelAppointment, showToast } =
-    usePatient();
+  const {
+    upcomingAppointments,
+    pastAppointments,
+    addAppointment,
+    cancelAppointment,
+    showToast,
+    selectedClinic,
+  } = usePatient();
 
   const [tab, setTab]                   = useState<Tab>("proximas");
   const [step, setStep]                 = useState(1);
@@ -51,7 +58,8 @@ export default function CitasPage() {
       date: selectedDate,
       time: selectedSlot,
       type: "presencial",
-      location: "Sede Principal · Maracaibo",
+      clinicId: terracota.id,
+      location: getClinicLocationLabel(),
       status: "confirmada",
     };
     addAppointment(newApt);
@@ -70,7 +78,10 @@ export default function CitasPage() {
 
   return (
     <div className="animate-fade-up pb-6">
-      <PageHeader title="Mis Citas" subtitle="Agenda inteligente VitalCare" />
+      <PageHeader
+        title="Mis Citas"
+        subtitle={selectedClinic ? `Agenda · ${selectedClinic.name}` : "Agenda inteligente"}
+      />
 
       {/* Tabs */}
       <div className="mb-5 flex gap-2 px-5">
@@ -186,8 +197,8 @@ export default function CitasPage() {
           <div className="mb-6 flex items-center gap-2">
             {[1, 2, 3, 4].map((s) => (
               <div key={s} className="flex flex-1 flex-col items-center gap-1">
-                <div className={cn("h-1.5 w-full rounded-full transition-all duration-300", step >= s ? "gold-gradient" : "bg-stone-200")} />
-                <span className={cn("text-[9px] uppercase tracking-wide", step >= s ? "text-gold-dark font-semibold" : "text-muted")}>
+                <div className={cn("h-1.5 w-full rounded-full transition-all duration-300", step >= s ? "gold-gradient" : "bg-white/10")} />
+                <span className={cn("text-[8px] uppercase tracking-wide", step >= s ? "text-gold font-semibold" : "text-white/30")}>
                   {s === 1 ? "Servicio" : s === 2 ? "Médico" : s === 3 ? "Fecha" : "Hora"}
                 </span>
               </div>
@@ -210,7 +221,7 @@ export default function CitasPage() {
               {/* Step 1: Servicio */}
               {step === 1 && (
                 <div className="space-y-3">
-                  <p className="text-sm font-semibold text-charcoal">Seleccione el servicio</p>
+                  <p className="text-sm font-semibold text-white">Seleccione el servicio</p>
                   {services.map((s) => (
                     <button
                       key={s.id}
@@ -219,16 +230,16 @@ export default function CitasPage() {
                         "w-full rounded-2xl border p-4 text-left transition-all",
                         selectedService === s.id
                           ? "border-gold bg-gold-subtle shadow-sm"
-                          : "border-border bg-surface hover:border-stone-300"
+                          : "border-border bg-surface hover:border-white/15"
                       )}
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-semibold text-charcoal text-sm">{s.name}</p>
+                        <p className="text-sm font-semibold text-white">{s.name}</p>
                         {selectedService === s.id && (
-                          <Check className="h-4 w-4 text-gold-dark" />
+                          <Check className="h-4 w-4 text-gold" />
                         )}
                       </div>
-                      <p className="text-xs text-muted mt-1">{s.duration} · {s.price}</p>
+                      <p className="mt-1 text-xs text-white/40">{s.duration} · {s.price}</p>
                     </button>
                   ))}
                   <Button className="w-full" disabled={!selectedService} onClick={() => setStep(2)}>
@@ -240,7 +251,7 @@ export default function CitasPage() {
               {/* Step 2: Profesional */}
               {step === 2 && (
                 <div className="space-y-3">
-                  <p className="text-sm font-semibold text-charcoal">Elija al profesional</p>
+                  <p className="text-sm font-semibold text-white">Elija al profesional</p>
                   {professionals.map((p) => (
                     <button
                       key={p.id}
@@ -258,11 +269,11 @@ export default function CitasPage() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
-                            <p className="font-semibold text-charcoal text-sm">{p.name}</p>
-                            {selectedPro === p.id && <Check className="h-4 w-4 text-gold-dark" />}
+                            <p className="text-sm font-semibold text-white">{p.name}</p>
+                            {selectedPro === p.id && <Check className="h-4 w-4 text-gold" />}
                           </div>
-                          <p className="text-xs text-muted">{p.specialty}</p>
-                          <p className="text-xs text-gold-dark">{p.instagram}</p>
+                          <p className="text-xs text-white/40">{p.specialty}</p>
+                          <p className="text-xs text-gold">{p.instagram}</p>
                         </div>
                       </div>
                     </button>
@@ -277,7 +288,7 @@ export default function CitasPage() {
               {/* Step 3: Fecha */}
               {step === 3 && (
                 <div className="space-y-3">
-                  <p className="text-sm font-semibold text-charcoal">Seleccione la fecha</p>
+                  <p className="text-sm font-semibold text-white">Seleccione la fecha</p>
                   <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
                     {datesAvailable.map((d) => (
                       <button
@@ -287,7 +298,7 @@ export default function CitasPage() {
                           "shrink-0 rounded-2xl border px-4 py-3 text-center transition-all",
                           selectedDate === d.value
                             ? "gold-gradient text-white border-transparent shadow-sm"
-                            : "border-border bg-surface text-charcoal hover:border-stone-300"
+                            : "border-border bg-surface text-white hover:border-white/15"
                         )}
                       >
                         <p className="text-xs font-semibold">{d.label.split(" ")[0]}</p>
@@ -295,7 +306,7 @@ export default function CitasPage() {
                       </button>
                     ))}
                   </div>
-                  <div className="flex gap-2 mt-2">
+                  <div className="mt-2 flex gap-2">
                     <Button variant="outline" className="flex-1" onClick={() => setStep(2)}>Atrás</Button>
                     <Button className="flex-1" disabled={!selectedDate} onClick={() => setStep(4)}>Continuar</Button>
                   </div>
@@ -305,7 +316,7 @@ export default function CitasPage() {
               {/* Step 4: Hora */}
               {step === 4 && (
                 <div className="space-y-4">
-                  <p className="text-sm font-semibold text-charcoal">Horarios disponibles · {selectedDate}</p>
+                  <p className="text-sm font-semibold text-white">Horarios disponibles · {selectedDate}</p>
                   <div className="grid grid-cols-2 gap-2">
                     {slots.map((slot) => (
                       <button
@@ -315,7 +326,7 @@ export default function CitasPage() {
                           "rounded-xl border py-3.5 text-sm font-semibold transition-all",
                           selectedSlot === slot
                             ? "gold-gradient text-white border-transparent shadow-sm"
-                            : "border-border bg-surface text-charcoal hover:border-stone-300"
+                            : "border-border bg-surface text-white hover:border-white/15"
                         )}
                       >
                         {slot}
@@ -326,10 +337,10 @@ export default function CitasPage() {
                   {/* Summary */}
                   {selectedSlot && (
                     <div className="rounded-2xl border border-gold/20 bg-gold-subtle p-4 animate-fade-up">
-                      <p className="text-xs font-semibold text-gold-dark mb-2 uppercase tracking-wider">Resumen de su cita</p>
-                      <p className="text-sm text-charcoal font-medium">{services.find(s => s.id === selectedService)?.name}</p>
-                      <p className="text-xs text-muted">{professionals.find(p => p.id === selectedPro)?.name}</p>
-                      <p className="text-xs text-muted">{selectedDate} · {selectedSlot}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-gold mb-2">Resumen de su cita</p>
+                      <p className="text-sm font-medium text-white">{services.find(s => s.id === selectedService)?.name}</p>
+                      <p className="text-xs text-white/40">{professionals.find(p => p.id === selectedPro)?.name}</p>
+                      <p className="text-xs text-white/40">{selectedDate} · {selectedSlot} · Terracota</p>
                     </div>
                   )}
 

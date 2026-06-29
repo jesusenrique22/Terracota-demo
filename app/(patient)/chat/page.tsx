@@ -188,7 +188,7 @@ export default function ChatPage() {
       <div className="mx-5 mt-5 rounded-2xl border border-dashed border-gold/30 bg-gold-subtle p-4 text-center">
         <p className="text-xs text-muted">
           💬 Canales separados para citas y soporte médico/nutricional.<br />
-          Respuestas en tiempo real de su equipo VitalCare.
+          Respuestas en tiempo real de su equipo médico.
         </p>
       </div>
     </div>

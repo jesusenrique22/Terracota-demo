@@ -36,7 +36,7 @@ export function BottomNav() {
   }
 
   return (
-    <nav className="fixed bottom-0 left-1/2 z-50 w-full max-w-[430px] -translate-x-1/2 border-t border-stone-200 bg-white/95 backdrop-blur-xl">
+    <nav className="fixed bottom-0 left-1/2 z-50 w-full max-w-[430px] -translate-x-1/2 border-t border-border bg-background/95 backdrop-blur-xl">
       <div className="flex items-center justify-around px-1 pb-[env(safe-area-inset-bottom,8px)] pt-2">
         {navItems.map(({ href, label, icon: Icon, badgeKey }) => {
           const active  = pathname === href || pathname.startsWith(`${href}/`);
@@ -47,7 +47,7 @@ export function BottomNav() {
               href={href}
               className={cn(
                 "relative flex min-w-0 flex-1 flex-col items-center gap-0.5 px-1 py-1.5 transition-all",
-                active ? "text-gold-dark" : "text-muted"
+                active ? "text-gold" : "text-muted"
               )}
             >
               {/* Active indicator */}

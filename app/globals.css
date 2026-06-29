@@ -1,63 +1,111 @@
 @import "tailwindcss";
 
 /* ============================================================
-   VITAL CARE — Design Tokens
-   Inspired by: @vitalcare.ca — Interior de la clínica
-   Concreto · Plantas tropicales · Luz cálida empotrada
+   TERRACOTA — Design Tokens (logo palette)
+   Sand · Taupe · Charcoal · White
    ============================================================ */
 
-:root {
-  /* Fondos */
-  --background: #f9f7f4;
-  --background-dark: #1a1a1a;
-  --surface: #ffffff;
-  --surface-muted: #f3f0ec;
-  --surface-dark: #242424;
+:root,
+[data-theme="dark"] {
+  /* Fondos — oscuro */
+  --background: #1a1a1b;
+  --background-dark: #0f0f10;
+  --surface: #222223;
+  --surface-muted: #2a2a2b;
+  --surface-dark: #181819;
+  --foreground: #f5f5f4;
+  --foreground-muted: rgba(245, 245, 244, 0.45);
+  --foreground-subtle: rgba(245, 245, 244, 0.28);
 
-  /* Concreto & Neutros */
-  --charcoal: #1e1e1e;
-  --charcoal-light: #2d2d2d;
-  --stone-900: #292524;
+  /* Neutros */
+  --charcoal: #f5f5f4;
+  --charcoal-light: #e7e5e4;
+  --stone-900: #fafaf9;
+  --stone-700: #d6d3d1;
+  --stone-500: #a8a29e;
+  --stone-400: #8b8589;
+  --stone-300: #5c5854;
+  --stone-200: #3a3836;
+  --stone-100: #2a2928;
+  --muted: #8b8589;
+
+  /* Arena — botones primarios (logo) */
+  --gold: #c2b280;
+  --gold-dark: #a39382;
+  --gold-light: rgba(194, 178, 128, 0.18);
+  --gold-subtle: rgba(194, 178, 128, 0.08);
+
+  /* Taupe — secundarios y bordes */
+  --terracotta: #c2b280;
+  --terracotta-dark: #a39382;
+  --terracotta-light: #d2b48c;
+  --terracotta-muted: rgba(194, 178, 128, 0.12);
+  --taupe: #8b8589;
+  --taupe-muted: rgba(139, 133, 137, 0.15);
+
+  /* Blanco marca */
+  --brand-white: #ffffff;
+
+  /* Verde Botánico */
+  --botanical: #5a9e6f;
+  --botanical-light: rgba(90,158,111,0.15);
+  --botanical-subtle: rgba(90,158,111,0.08);
+
+  /* Semánticos */
+  --border: rgba(255,255,255,0.08);
+  --border-dark: rgba(255,255,255,0.12);
+  --success: #5a9e6f;
+  --danger: #c46b6b;
+  --warning: #d4a017;
+
+  /* App Shell */
+  --phone-width: 430px;
+  --shell-bg: #0f0f10;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.25);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.35);
+  --shadow-gold: 0 8px 32px rgba(194, 178, 128, 0.22);
+}
+
+[data-theme="light"] {
+  --background: #faf8f5;
+  --background-dark: #f0ebe3;
+  --surface: #ffffff;
+  --surface-muted: #f5f1ea;
+  --surface-dark: #ede8df;
+  --foreground: #1a1a1b;
+  --foreground-muted: rgba(26, 26, 27, 0.55);
+  --foreground-subtle: rgba(26, 26, 27, 0.35);
+
+  --charcoal: #1a1a1b;
+  --charcoal-light: #2d2d2e;
+  --stone-900: #1a1a1b;
   --stone-700: #44403c;
   --stone-500: #78716c;
   --stone-400: #a8a29e;
   --stone-300: #d6d3d1;
   --stone-200: #e7e5e4;
   --stone-100: #f5f5f4;
-  --muted: #6b6765;
+  --muted: #6b6560;
 
-  /* Dorado Premium (identidad de marca) */
-  --gold: #c4a265;
-  --gold-dark: #8f6e3d;
-  --gold-light: #f0e2cc;
-  --gold-subtle: #faf5ec;
+  --gold-light: rgba(194, 178, 128, 0.22);
+  --gold-subtle: rgba(194, 178, 128, 0.12);
+  --terracotta-muted: rgba(194, 178, 128, 0.16);
+  --taupe-muted: rgba(139, 133, 137, 0.12);
 
-  /* Verde Botánico (plantas de la clínica) */
-  --botanical: #4a7c59;
-  --botanical-light: #d4ede0;
-  --botanical-subtle: #f0f9f4;
+  --botanical-light: rgba(90,158,111,0.12);
+  --botanical-subtle: rgba(90,158,111,0.06);
 
-  /* Azul de Marca (brand-blue acento digital) */
-  --brand-blue: #2563eb;
-  --brand-blue-dark: #1d4ed8;
-  --brand-blue-light: #dbeafe;
+  --border: rgba(26, 26, 27, 0.08);
+  --border-dark: rgba(26, 26, 27, 0.14);
+  --shell-bg: #f0ebe3;
 
-  /* Semánticos */
-  --border: #e5e1da;
-  --border-dark: #3d3d3d;
-  --success: #4a7c59;
-  --danger: #b45454;
-  --warning: #d4a017;
-
-  /* App Shell */
-  --phone-width: 430px;
-
-  /* Sombras */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.07);
-  --shadow-gold: 0 8px 32px rgba(196,162,101,0.25);
-  --shadow-blue: 0 8px 24px rgba(37,99,235,0.22);
+  --shadow-sm: 0 1px 3px rgba(26,26,27,0.06);
+  --shadow-md: 0 4px 16px rgba(26,26,27,0.08);
+  --shadow-lg: 0 12px 40px rgba(26,26,27,0.1);
+  --shadow-gold: 0 8px 24px rgba(194, 178, 128, 0.28);
 }
 
 /* ============================================================
@@ -88,7 +136,11 @@
   --color-botanical-subtle: var(--botanical-subtle);
   --color-brand-blue: var(--brand-blue);
   --color-brand-blue-dark: var(--brand-blue-dark);
-  --color-brand-blue-light: var(--brand-blue-light);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-dark: var(--terracotta-dark);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-terracotta-muted: var(--terracotta-muted);
+  --color-taupe: var(--taupe);
   --color-border: var(--border);
   --color-border-dark: var(--border-dark);
   --color-success: var(--success);
@@ -111,11 +163,12 @@ html {
 }
 
 body {
-  background: #e8e5e0;
+  background: var(--shell-bg);
   color: var(--charcoal);
   font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .font-display { font-family: var(--font-display), 'Playfair Display', Georgia, serif; }
@@ -124,11 +177,130 @@ body {
    Landing Page
    ============================================================ */
 .landing-page {
-  background: #ffffff;
+  background: var(--background);
 }
 
 body:has(.landing-page) {
+  background: var(--background);
+}
+
+/* Landing — hero adaptativo */
+.landing-hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 10%, rgba(194,178,128,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(163,147,130,0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #1a1a1b 0%, #222223 50%, #1a1a1b 100%);
+}
+
+[data-theme="light"] .landing-hero-bg {
+  background:
+    radial-gradient(ellipse 90% 70% at 80% 0%, rgba(194,178,128,0.28) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 60% at 0% 100%, rgba(210,180,140,0.2) 0%, transparent 45%),
+    linear-gradient(180deg, #faf8f5 0%, #f5f1ea 55%, #faf8f5 100%);
+}
+
+.landing-hero-fade {
+  background: linear-gradient(to top, #1a1a1b, transparent);
+}
+
+[data-theme="light"] .landing-hero-fade {
+  background: linear-gradient(to top, #faf8f5, transparent);
+}
+
+/* Ornamento hero — anillos del logo, sin letras */
+.landing-hero-ornament {
+  position: absolute;
+  right: -8%;
+  top: 14%;
+  width: min(52vw, 380px);
+  height: min(52vw, 380px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.landing-hero-ornament::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(210,180,140,0.12) 0%, rgba(194,178,128,0.06) 50%, rgba(163,147,130,0.04) 100%);
+  border: 1px solid rgba(194, 178, 128, 0.14);
+}
+
+.landing-hero-ornament::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  border: 1px solid rgba(194, 178, 128, 0.1);
+}
+
+[data-theme="dark"] .landing-hero-ornament::before {
+  background: linear-gradient(145deg, rgba(194,178,128,0.08) 0%, rgba(163,147,130,0.04) 100%);
+  border-color: rgba(194, 178, 128, 0.1);
+}
+
+[data-theme="dark"] .landing-hero-ornament::after {
+  border-color: rgba(194, 178, 128, 0.07);
+}
+
+.landing-hero-ornament-inner {
+  position: absolute;
+  inset: 36%;
+  border-radius: 50%;
+  border: 1px solid rgba(194, 178, 128, 0.08);
+}
+
+[data-theme="dark"] .landing-hero-ornament-inner {
+  border-color: rgba(194, 178, 128, 0.05);
+}
+
+@media (max-width: 640px) {
+  .landing-hero-ornament {
+    right: -22%;
+    top: 8%;
+    width: 70vw;
+    height: 70vw;
+    opacity: 0.7;
+  }
+}
+
+.landing-section-alt {
+  background: #0d0d0d;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .landing-section-alt {
+  background: #f5f1ea;
+  border-color: rgba(26, 26, 27, 0.08);
+}
+
+/* Botón inverso sobre gradiente arena — legible en ambos temas */
+.landing-inverse-btn {
+  background: #1a1a1b;
+  color: #ffffff;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.landing-inverse-btn:hover {
+  opacity: 0.92;
+}
+
+.landing-inverse-btn:active {
+  transform: scale(0.98);
+}
+
+[data-theme="dark"] .landing-inverse-btn {
   background: #ffffff;
+  color: #1a1a1b;
+}
+
+.landing-inverse-btn .landing-inverse-btn-icon {
+  color: #c2b280;
+}
+
+[data-theme="dark"] .landing-inverse-btn .landing-inverse-btn-icon {
+  color: #a39382;
 }
 
 /* ============================================================
@@ -140,33 +312,32 @@ body:has(.landing-page) {
   min-height: 100dvh;
   margin: 0 auto;
   background: var(--background);
-  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border);
   position: relative;
   overflow: hidden;
+  transition: background-color 0.25s ease;
 }
 
 @media (min-width: 480px) {
   body:has(.phone-frame) {
     padding: 24px 0;
-    background: #dbd8d3;
+    background: var(--shell-bg);
   }
 
   .phone-frame {
     min-height: calc(100dvh - 48px);
     border-radius: 36px;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
   }
 }
 
 /* ============================================================
    Gradients de Marca
    ============================================================ */
-.brand-gradient {
-  background: linear-gradient(135deg, var(--brand-blue-dark) 0%, var(--brand-blue) 100%);
-}
-
-.gold-gradient {
-  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 60%, #dbc07a 100%);
+.brand-gradient,
+.gold-gradient,
+.sand-gradient {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 55%, var(--terracotta-light) 100%);
 }
 
 .botanical-gradient {
@@ -221,10 +392,10 @@ body:has(.landing-page) {
    Cards & Glass
    ============================================================ */
 .glass-card {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(20, 20, 20, 0.88);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card-dark {
@@ -367,6 +538,12 @@ body:has(.landing-page) {
 /* ============================================================
    Landing Specific
    ============================================================ */
+.sand-texture {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
 .landing-section-divider {
   width: 48px;
   height: 2px;
@@ -420,7 +597,8 @@ body:has(.landing-page) {
   text-transform: uppercase;
 }
 
-.pill-gold     { background: var(--gold-light);      color: var(--gold-dark); }
+.pill-gold     { background: var(--gold-light);      color: var(--brand-white); }
+.pill-taupe    { background: var(--taupe-muted);     color: var(--charcoal); border: 1px solid rgba(139,133,137,0.25); }
 .pill-green    { background: var(--botanical-light);  color: var(--botanical); }
 .pill-blue     { background: var(--brand-blue-light); color: var(--brand-blue-dark); }
 .pill-charcoal { background: rgba(30,30,30,0.08);      color: var(--charcoal); }

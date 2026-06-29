@@ -32,19 +32,13 @@ function ToastRenderer() {
   );
 }
 
-function PatientShell({ children }: { children: React.ReactNode }) {
-  return (
-    <MobileShell>
-      {children}
-      <ToastRenderer />
-    </MobileShell>
-  );
-}
-
 export default function PatientLayout({ children }: { children: React.ReactNode }) {
   return (
     <PatientProvider>
-      <PatientShell>{children}</PatientShell>
+      <MobileShell>
+        {children}
+        <ToastRenderer />
+      </MobileShell>
     </PatientProvider>
   );
 }
