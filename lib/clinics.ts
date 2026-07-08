@@ -1,5 +1,5 @@
 /* ====================================================
-   TERRACOTA — Estética & Spa · Maracaibo
+   VITA STUDIO — Estética & Spa · Maracaibo
    ==================================================== */
 
 export interface ClinicService {
@@ -31,12 +31,12 @@ export interface Clinic {
   portalEmailDomain: string;
 }
 
-export const terracota: Clinic = {
-  id: "terracota",
-  slug: "terracota",
-  name: "Terracota",
+export const mainClinic: Clinic = {
+  id: "vita-studio",
+  slug: "vita-studio",
+  name: "Vita Studio",
   tagline: "Estética & Spa · Maracaibo",
-  handle: "@terracotabysmilemore",
+  handle: "@vitastudio",
   category: "Salud y belleza",
   accent: "#c2b280",
   accentMuted: "rgba(194, 178, 128, 0.12)",
@@ -79,33 +79,33 @@ export const terracota: Clinic = {
   address: "C.C. Camoruco, Piso 1, Local 2-03",
   city: "Maracaibo, Venezuela",
   phone: "+58 424 555-0200",
-  whatsapp: "https://linktr.ee/terracotamcbo",
-  instagram: "https://instagram.com/terracotabysmilemore",
-  linktree: "https://linktr.ee/terracotamcbo",
+  whatsapp: "https://linktr.ee/vitastudio",
+  instagram: "https://instagram.com/vitastudio",
+  linktree: "https://linktr.ee/vitastudio",
   hours: "Lunes a sábado · 9:00 AM – 6:00 PM",
-  initials: "TR",
-  portalEmailDomain: "terracota.mcbo",
+  initials: "VS",
+  portalEmailDomain: "vitastudio.demo",
 };
 
-export const clinics = [terracota];
-export const defaultClinic = terracota;
+export const clinics = [mainClinic];
+export const defaultClinic = mainClinic;
 
 export function getClinicBySlug(slug: string): Clinic | undefined {
-  return slug === terracota.slug ? terracota : undefined;
+  return slug === mainClinic.slug ? mainClinic : undefined;
 }
 
 export function getClinicById(id: string): Clinic | undefined {
-  return id === terracota.id ? terracota : undefined;
+  return id === mainClinic.id ? mainClinic : undefined;
 }
 
 export function getClinicLocationLabel(_clinicId?: string): string {
-  return `${terracota.name} · ${terracota.address}`;
+  return `${mainClinic.name} · ${mainClinic.address}`;
 }
 
 export const experiencePillars = [
   {
     title: "Ambiente premium",
-    desc: "Espacios cálidos con estética terracota, luz suave y atención personalizada en cada visita.",
+    desc: "Espacios cálidos con paleta neutra, luz suave y atención personalizada en cada visita.",
   },
   {
     title: "Tecnología avanzada",

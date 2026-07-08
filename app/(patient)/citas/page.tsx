@@ -15,7 +15,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { professionals, services } from "@/lib/mock-data";
 import type { Appointment } from "@/lib/mock-data";
-import { getClinicLocationLabel, terracota } from "@/lib/clinics";
+import { getClinicLocationLabel, mainClinic } from "@/lib/clinics";
 import { cn } from "@/lib/utils";
 import { usePatient } from "@/lib/patient-context";
 
@@ -58,7 +58,7 @@ export default function CitasPage() {
       date: selectedDate,
       time: selectedSlot,
       type: "presencial",
-      clinicId: terracota.id,
+      clinicId: mainClinic.id,
       location: getClinicLocationLabel(),
       status: "confirmada",
     };
@@ -340,7 +340,7 @@ export default function CitasPage() {
                       <p className="text-xs font-semibold uppercase tracking-wider text-gold mb-2">Resumen de su cita</p>
                       <p className="text-sm font-medium text-white">{services.find(s => s.id === selectedService)?.name}</p>
                       <p className="text-xs text-white/40">{professionals.find(p => p.id === selectedPro)?.name}</p>
-                      <p className="text-xs text-white/40">{selectedDate} · {selectedSlot} · Terracota</p>
+                      <p className="text-xs text-white/40">{selectedDate} · {selectedSlot} · Vita Studio</p>
                     </div>
                   )}
 

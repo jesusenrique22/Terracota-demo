@@ -4,37 +4,37 @@ import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Eye, EyeOff, Lock, ShieldCheck } from "lucide-react";
-import { TerracotaLogo } from "@/components/brand/logo";
+import { BrandLogo } from "@/components/brand/logo";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { terracota } from "@/lib/clinics";
+import { mainClinic } from "@/lib/clinics";
 import { aestheticDoctor } from "@/lib/mock-data";
 import { useTheme } from "@/lib/theme-context";
 
 type Role = "patient" | "doctor";
 
 const DEMO_CREDENTIALS = {
-  patient: { email: "maria.gonzalez@terracota.mcbo", password: "terracota2026" },
-  doctor:  { email: aestheticDoctor.email, password: "terracota2026" },
+  patient: { email: "maria.gonzalez@vitastudio.demo", password: "demo2026" },
+  doctor:  { email: aestheticDoctor.email, password: "demo2026" },
 };
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const roleParam = searchParams.get("role");
-  const accent = terracota.accent;
+  const accent = mainClinic.accent;
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
   const [role, setRole] = useState<Role>(roleParam === "doctor" ? "doctor" : "patient");
   const [email, setEmail] = useState(DEMO_CREDENTIALS.patient.email);
-  const [password, setPassword] = useState("terracota2026");
+  const [password, setPassword] = useState("demo2026");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   function switchRole(r: Role) {
     setRole(r);
     setEmail(DEMO_CREDENTIALS[r].email);
-    setPassword("terracota2026");
+    setPassword("demo2026");
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -71,13 +71,13 @@ function LoginForm() {
         <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface p-8 shadow-lg">
           <div className="mb-8 text-center">
             <div className="mb-6 flex justify-center">
-              <TerracotaLogo size="md" variant={isDark ? "dark" : "light"} />
+              <BrandLogo size="md" variant={isDark ? "dark" : "light"} />
             </div>
             <h1 className="font-display text-3xl font-black text-charcoal">
               Bienvenida, <span className="italic text-gold">María</span>
             </h1>
             <p className="mt-2 text-xs leading-relaxed text-muted">
-              Portal Terracota · acceso seguro a citas y expediente.
+              Portal Vita Studio · acceso seguro a citas y expediente.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ function LoginForm() {
               </p>
             </div>
             <p className="text-xs font-mono tracking-tight text-charcoal">{DEMO_CREDENTIALS[role].email}</p>
-            <p className="mt-0.5 text-[11px] font-mono text-muted">Contraseña: terracota2026</p>
+            <p className="mt-0.5 text-[11px] font-mono text-muted">Contraseña: demo2026</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">

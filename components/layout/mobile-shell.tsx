@@ -50,7 +50,7 @@ function TopBar() {
               {patient.name.split(" ")[0]} {patient.name.split(" ")[1]}
             </p>
             <p className="mt-0.5 text-[9px] leading-none text-muted">
-              {selectedClinic?.name ?? "Terracota"} · {patient.memberSince}
+              {selectedClinic?.name ?? "Vita Studio"} · {patient.memberSince}
             </p>
           </div>
         </button>

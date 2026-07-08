@@ -1,5 +1,5 @@
 /* ====================================================
-   TERRACOTA — Mock Data & Types
+   VITA STUDIO — Mock Data & Types
    ==================================================== */
 
 import { getClinicLocationLabel } from "@/lib/clinics";
@@ -31,7 +31,7 @@ export const nutritionist = {
 export const aestheticDoctor = {
   name: "Dr. Andrés Delgado",
   initials: "AD",
-  email: "dr.delgado@terracota.mcbo",
+  email: "dr.delgado@vitastudio.demo",
   specialty: "Medicina Estética",
   instagram: "@dr.andresdelgado",
 };
@@ -41,9 +41,9 @@ export const aestheticDoctor = {
 export const patient = {
   name: "María González",
   initials: "MG",
-  email: "maria.gonzalez@terracota.mcbo",
+  email: "maria.gonzalez@vitastudio.demo",
   doctor: nutritionist.name,
-  primaryClinicId: "terracota",
+  primaryClinicId: "vita-studio",
   memberSince: "Mar 2024",
   age: 34,
   phone: "+58 412 555-0198",
@@ -68,8 +68,8 @@ export const upcomingAppointment: Appointment = {
   date: "28 Jun 2026",
   time: "10:30 AM",
   type: "online",
-  clinicId: "terracota",
-  location: "Telemedicina · Terracota",
+  clinicId: "vita-studio",
+  location: "Telemedicina · Vita Studio",
   status: "confirmada",
 };
 
@@ -83,8 +83,8 @@ export const appointments = {
       date: "15 Jul 2026",
       time: "4:00 PM",
       type: "presencial" as AppointmentType,
-      clinicId: "terracota",
-      location: getClinicLocationLabel("terracota"),
+      clinicId: "vita-studio",
+      location: getClinicLocationLabel("vita-studio"),
       status: "pendiente" as AppointmentStatus,
     },
   ] as Appointment[],
@@ -131,9 +131,9 @@ export const services = [
 ];
 
 export const professionals = [
-  { id: "p1", name: nutritionist.name,      specialty: "Nutrición Metabólica", instagram: nutritionist.instagram,      clinicIds: ["terracota"] },
-  { id: "p2", name: aestheticDoctor.name,   specialty: aestheticDoctor.specialty, instagram: aestheticDoctor.instagram, clinicIds: ["terracota"] },
-  { id: "p3", name: "Lic. Ana Torres",    specialty: "Estética & Masajes",    instagram: "@anatorres.spa",   clinicIds: ["terracota"] },
+  { id: "p1", name: nutritionist.name,      specialty: "Nutrición Metabólica", instagram: nutritionist.instagram,      clinicIds: ["vita-studio"] },
+  { id: "p2", name: aestheticDoctor.name,   specialty: aestheticDoctor.specialty, instagram: aestheticDoctor.instagram, clinicIds: ["vita-studio"] },
+  { id: "p3", name: "Lic. Ana Torres",    specialty: "Estética & Masajes",    instagram: "@anatorres.spa",   clinicIds: ["vita-studio"] },
 ];
 
 /* ---------- Evolution Metrics ---------- */
@@ -195,9 +195,9 @@ export const chatMessages: Record<string, { id: string; from: "user" | "agent" |
 
 export const products = [
   { id: "prod-1", name: "Serum Vitamina C 20%",        brand: "SkinCeuticals",  price: 98,  category: "Dermatología", recommended: true,  image: "/product-serum.jpg" },
-  { id: "prod-2", name: "Colágeno Hidrolizado Premium", brand: "Terracota Lab", price: 54,  category: "Suplementos",  recommended: true,  image: "/product-collagen.jpg" },
+  { id: "prod-2", name: "Colágeno Hidrolizado Premium", brand: "Vita Lab", price: 54,  category: "Suplementos",  recommended: true,  image: "/product-collagen.jpg" },
   { id: "prod-3", name: "Crema Retinol 0.5%",           brand: "Obagi",          price: 112, category: "Dermatología", recommended: false, image: "/product-cream.jpg" },
-  { id: "prod-4", name: "Omega-3 Metabólico",           brand: "Terracota Lab", price: 42,  category: "Suplementos",  recommended: true,  image: "/product-omega.jpg" },
+  { id: "prod-4", name: "Omega-3 Metabólico",           brand: "Vita Lab", price: 42,  category: "Suplementos",  recommended: true,  image: "/product-omega.jpg" },
 ];
 
 export const orders = [

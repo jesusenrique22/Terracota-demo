@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { Clinic } from "@/lib/clinics";
-import { TerracotaLogo } from "@/components/brand/logo";
+import { BrandLogo } from "@/components/brand/logo";
 
 type ClinicLogoProps = {
   clinic?: Clinic;
@@ -10,7 +10,7 @@ type ClinicLogoProps = {
   variant?: "light" | "dark";
 };
 
-/** Siempre muestra la marca Terracota — sin fotos ni avatares */
+/** Siempre muestra la marca de la clínica — sin fotos ni avatares */
 export function ClinicLogo({
   size = "md",
   showText = true,
@@ -18,7 +18,7 @@ export function ClinicLogo({
   variant = "dark",
 }: ClinicLogoProps) {
   return (
-    <TerracotaLogo
+    <BrandLogo
       size={size}
       showText={showText}
       className={className}

@@ -15,7 +15,7 @@ import {
   Waves,
   Zap,
 } from "lucide-react";
-import { activeTreatments, terracota } from "@/lib/clinics";
+import { activeTreatments, mainClinic } from "@/lib/clinics";
 import { usePatient } from "@/lib/patient-context";
 import { cn } from "@/lib/utils";
 
@@ -52,7 +52,7 @@ export default function HomePage() {
         </h1>
       </div>
 
-      {/* Tarjeta bienestar — identidad Terracota */}
+      {/* Tarjeta bienestar — identidad de la clínica */}
       <div className="relative overflow-hidden rounded-3xl border border-border p-5 gold-gradient text-white">
         <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-white/10 blur-2xl" />
         <div className="relative flex items-end justify-between gap-4">
@@ -175,7 +175,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Sugerencias Terracota */}
+      {/* Sugerencias de la clínica */}
       <div>
         <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-muted">Recomendado para ti</p>
         <div className="grid grid-cols-2 gap-2.5">
@@ -206,8 +206,8 @@ export default function HomePage() {
           <MapPin className="h-4 w-4 text-gold" />
         </div>
         <div>
-          <p className="text-xs font-semibold text-charcoal">{terracota.address}</p>
-          <p className="text-[11px] text-muted">{terracota.hours}</p>
+          <p className="text-xs font-semibold text-charcoal">{mainClinic.address}</p>
+          <p className="text-[11px] text-muted">{mainClinic.hours}</p>
         </div>
       </div>
     </div>

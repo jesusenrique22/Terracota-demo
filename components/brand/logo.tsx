@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { terracota } from "@/lib/clinics";
+import { mainClinic } from "@/lib/clinics";
 
 type LogoProps = {
   size?: "sm" | "md" | "lg";
@@ -24,7 +24,7 @@ function BrandMark({ size }: { size: number }) {
   );
 }
 
-export function TerracotaLogo({
+export function BrandLogo({
   size = "md",
   showText = true,
   className,
@@ -62,7 +62,7 @@ export function TerracotaLogo({
               isDark ? "text-white" : "text-charcoal"
             )}
           >
-            Terracota
+            {mainClinic.name}
           </p>
           <p
             className={cn(
@@ -71,7 +71,7 @@ export function TerracotaLogo({
               isDark ? "text-white/40" : "text-muted"
             )}
           >
-            {terracota.tagline}
+            {mainClinic.tagline}
           </p>
         </div>
       )}
@@ -79,4 +79,4 @@ export function TerracotaLogo({
   );
 }
 
-export const GroupLogo = TerracotaLogo;
+export const GroupLogo = BrandLogo;

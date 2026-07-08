@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
-import { TerracotaLogo } from "@/components/brand/logo";
+import { BrandLogo } from "@/components/brand/logo";
 import { ServiceMenuView } from "@/components/menu/service-menu-view";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { menuStats } from "@/lib/service-menu";
-import { terracota as clinic } from "@/lib/clinics";
+import { mainClinic as clinic } from "@/lib/clinics";
 import { useTheme } from "@/lib/theme-context";
 
 export default function MenuPage() {
@@ -34,7 +34,7 @@ export default function MenuPage() {
         <div className="sand-texture pointer-events-none absolute inset-0 opacity-20" />
         <div className="relative text-center text-white">
           <div className="flex justify-center">
-            <TerracotaLogo size="md" variant="dark" />
+            <BrandLogo size="md" variant="dark" />
           </div>
           <p className="mt-8 text-[10px] font-bold uppercase tracking-[0.35em] text-white/75">
             Brochure digital
@@ -82,9 +82,9 @@ export default function MenuPage() {
       </section>
 
       <footer className="border-t border-border px-5 pb-10 pt-8">
-        <TerracotaLogo size="sm" variant={isDark ? "dark" : "light"} />
+        <BrandLogo size="sm" variant={isDark ? "dark" : "light"} />
         <p className="mt-4 text-xs text-muted">
-          Precios referenciales del brochure Terracota · {clinic.city}
+          Precios referenciales del brochure Vita Studio · {clinic.city}
         </p>
       </footer>
     </div>

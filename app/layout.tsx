@@ -23,14 +23,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Terracota · Estética & Spa | Maracaibo",
+  title: "Vita Studio · Estética & Spa | Maracaibo",
   description:
     "Estética avanzada, masajes terapéuticos, bioestimuladores, bótox y depilación láser en Maracaibo, Venezuela.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Terracota",
+    title: "Vita Studio",
   },
 };
 
@@ -57,7 +57,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('terracota-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('clinic-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
           }}
         />
       </head>

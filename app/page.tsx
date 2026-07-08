@@ -18,8 +18,8 @@ import {
   Waves,
   Zap,
 } from "lucide-react";
-import { TerracotaLogo } from "@/components/brand/logo";
-import { experiencePillars, promotions, terracota as clinic } from "@/lib/clinics";
+import { BrandLogo } from "@/components/brand/logo";
+import { experiencePillars, promotions, mainClinic as clinic } from "@/lib/clinics";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { useTheme } from "@/lib/theme-context";
 
@@ -77,7 +77,7 @@ export default function LandingPage() {
           navSolid ? "border-b border-border bg-background/95 backdrop-blur-md" : "bg-transparent"
         }`}
       >
-        <TerracotaLogo size="sm" variant={isDark ? "dark" : "light"} />
+        <BrandLogo size="sm" variant={isDark ? "dark" : "light"} />
         <div className="flex items-center gap-3">
           <a href="#servicios" className="hidden text-[11px] font-medium uppercase tracking-widest text-muted transition-colors hover:text-gold md:block">
             Servicios
@@ -195,7 +195,7 @@ export default function LandingPage() {
       <section className="landing-section-alt border-y px-5 py-16">
         <Reveal>
           <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">La experiencia</p>
-          <h2 className="mt-2 font-display text-2xl font-black text-charcoal">Por qué elegir Terracota</h2>
+          <h2 className="mt-2 font-display text-2xl font-black text-charcoal">Por qué elegir Vita Studio</h2>
         </Reveal>
         <div className="mt-8 space-y-4">
           {experiencePillars.map((p, i) => (
@@ -327,7 +327,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-border px-5 pb-10 pt-10">
-        <TerracotaLogo size="sm" variant={isDark ? "dark" : "light"} />
+        <BrandLogo size="sm" variant={isDark ? "dark" : "light"} />
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
           <Link href="/login" className="text-xs text-muted transition-colors hover:text-gold">Portal Paciente</Link>
           <Link href="/login?role=doctor" className="text-xs text-muted transition-colors hover:text-gold">Portal Médico</Link>
@@ -338,7 +338,7 @@ export default function LandingPage() {
           <MapPin className="h-3 w-3" />
           {clinic.address} · {clinic.city}
         </p>
-        <p className="mt-2 text-[10px] text-muted/70">© 2026 Terracota · {clinic.city}</p>
+        <p className="mt-2 text-[10px] text-muted/70">© 2026 Vita Studio · {clinic.city}</p>
       </footer>
     </div>
   );

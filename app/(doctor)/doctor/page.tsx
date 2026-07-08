@@ -16,7 +16,7 @@ import {
   MapPin,
   ChevronRight,
 } from "lucide-react";
-import { TerracotaLogo } from "@/components/brand/logo";
+import { BrandLogo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import {
   doctorUser,
@@ -351,8 +351,8 @@ export default function DoctorPage() {
       {/* Footer */}
       <div className="border-t border-border bg-white/95 px-5 py-3 backdrop-blur-sm">
         <div className="flex items-center justify-center gap-2">
-          <TerracotaLogo size="sm" showText={false} />
-          <p className="text-xs text-muted">Portal Médico · Terracota · v1.0</p>
+          <BrandLogo size="sm" showText={false} />
+          <p className="text-xs text-muted">Portal Médico · Vita Studio · v1.0</p>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const STORAGE_KEY = "terracota-theme";
+const STORAGE_KEY = "clinic-theme";
 
 function applyTheme(theme: Theme) {
   if (typeof document !== "undefined") {

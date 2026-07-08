@@ -1,5 +1,5 @@
 /* ====================================================
-   TERRACOTA — Menú de Servicios (brochure)
+   VITA STUDIO — Menú de Servicios (brochure)
    ==================================================== */
 
 export interface MenuItem {
